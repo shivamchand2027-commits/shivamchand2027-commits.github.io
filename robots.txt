@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /vault.html
+Disallow: /padhai.html
+
+Sitemap: https://shivamchand2027-commits.github.io/sitemap.xml
