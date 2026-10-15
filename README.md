@@ -2,7 +2,7 @@
 
 Invitation-only venture network for founders. This repository is the public website, served with GitHub Pages.
 
-Live: https://shivamchand2027-commits.github.io/
+Live: https://adyacapital.me/
 
 ## What it is
 
@@ -40,7 +40,7 @@ Open http://localhost:8000.
 
 ## Deploy
 
-GitHub Pages serves the `main` branch from the repo root. Pushing to `main` publishes the site within a minute or two. The repository is named `<username>.github.io` so the site and `robots.txt` sit at the domain root.
+GitHub Pages serves the `main` branch from the repo root. Pushing to `main` publishes the site within a minute or two. The repository is named `<username>.github.io` and the custom domain `adyacapital.me` (see `CNAME`) points at it with GitHub Pages A records, so the site and `robots.txt` sit at the domain root.
 
 To use a custom domain, add a `CNAME` file with the domain, set it under Settings > Pages, and update the canonical, Open Graph and sitemap URLs in `index.html`, `robots.txt` and `sitemap.xml`.
 
