@@ -1,6 +1,6 @@
 (function(){
-  if(window.LCF_LOCKED) return;
-  var F=window.LCF_FUNDS||[], $=function(i){return document.getElementById(i);};
+  if(window.ADYA_LOCKED) return;
+  var F=window.ADYA_FUNDS||[], $=function(i){return document.getElementById(i);};
   function stages(f){ var s=f.stage.join(' ').toLowerCase(), o=[];
     if(s.indexOf('venture debt')>=0) return ['Venture debt'];
     if(s.indexOf('to growth')>=0){ return ['Seed','Early','Growth']; }
@@ -29,6 +29,6 @@
   document.addEventListener('click',function(e){ var b=e.target.closest('.fp'); if(!b) return; var k=b.dataset.k, v=b.dataset.v||null;
     var all=b.parentNode.querySelectorAll('.fp'); Array.prototype.forEach.call(all,function(x){x.classList.remove('on');}); b.classList.add('on'); sel[k]=v; render(); });
   $('q').addEventListener('input',render);
-  $('asof').innerHTML='Compiled from public sources, current as of '+esc(window.LCF_FUNDS_ASOF||'')+'. Stage and sector tags are indicative, and funds change focus over time. Check each fund\'s website for its current thesis and team before reaching out. This directory is for information only and is not an endorsement or investment advice.';
+  $('asof').innerHTML='Compiled from public sources, current as of '+esc(window.ADYA_FUNDS_ASOF||'')+'. Stage and sector tags are indicative, and funds change focus over time. Check each fund\'s website for its current thesis and team before reaching out. This directory is for information only and is not an endorsement or investment advice.';
   render();
 })();

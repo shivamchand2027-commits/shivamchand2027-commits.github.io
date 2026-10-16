@@ -1,5 +1,5 @@
 (function(){
-  if(window.LCF_LOCKED) return;
+  if(window.ADYA_LOCKED) return;
   var $=function(i){return document.getElementById(i);};
   function n(i){ var v=parseFloat($(i).value); return isNaN(v)?0:v; }
   function f(x){ return (Math.round(x*100)/100).toLocaleString('en-IN'); }

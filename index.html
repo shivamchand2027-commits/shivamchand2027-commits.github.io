@@ -33,6 +33,19 @@
 </div><div class="corner tl">Access is earned,<br>never granted</div><div class="corner tr">By invitation<br>only</div><div class="corner bl">Adya Capital</div></header>
 
 <main>
+  <section class="card hidden" id="refCard">
+    <h2>Your nominations</h2>
+    <p class="lead">Your name stands behind every founder you invite. Nominate only people you would vouch for: those who earn a place, not those who ask for one.</p>
+    <div class="refbox">
+      <div class="code-row"><div class="code" id="refCode">ADYA-XXXXX</div><button class="copybtn" id="refCopy" type="button">Copy code</button></div>
+      <p class="tiny" id="refLeft" style="margin:8px 0 0"></p>
+      <div class="row">
+        <button class="btn sm" id="refCopyLink" type="button">Copy invite link<span class="i">&rarr;</span></button>
+        <a class="btn sm glass" id="refWa" target="_blank" rel="noopener">Share on WhatsApp<span class="i">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
   <section class="card" id="clubCard">
     <h2>Member resources</h2>
     <p class="lead">Reserved for admitted members. You were let in, so use it: prepare before you pitch.</p>
@@ -101,7 +114,7 @@
 
   <section class="card" id="statusCard">
     <h2>Application status</h2>
-    <p class="lead">Enter the email and ticket from your application.</p>
+    <p class="lead">Enter the email and ticket from your application. An invitation only gets you to the door; the Committee decides.</p>
     <form id="statusForm" novalidate>
       <label>Email<input type="email" id="sEmail" required placeholder="The email used on your application"></label>
       <label>Ticket<input type="text" id="sTicket" required placeholder="ADYA-XXXXXX" autocapitalize="characters"></label>

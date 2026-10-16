@@ -1,4 +1,4 @@
-window.LCF_FUNDS=[
+window.ADYA_FUNDS=[
 {
 "name": "Peak XV Partners",
 "site": "https://www.peakxv.com",
@@ -1018,4 +1018,4 @@ window.LCF_FUNDS=[
 "type": "Venture debt",
 "people": []
 }
-];window.LCF_FUNDS_ASOF="October 2026";
+];window.ADYA_FUNDS_ASOF="October 2026";

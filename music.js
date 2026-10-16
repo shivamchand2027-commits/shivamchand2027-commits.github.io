@@ -5,7 +5,8 @@
    Very low volume. Starts at the first tap/keypress if autoplay is blocked. Mute toggle in the header. */
 (function(){
   var btn=document.getElementById('mute'); if(!btn) return;
-  var label=btn.querySelector('.t'), KEY='lcf_music';
+  var label=btn.querySelector('.t'), KEY='adya_music';
+  try{ if(localStorage.getItem(KEY)===null && localStorage.getItem('lcf_music')!==null){ localStorage.setItem(KEY,localStorage.getItem('lcf_music')); localStorage.removeItem('lcf_music'); } }catch(e){}
   var want=true; try{ want=localStorage.getItem(KEY)!=='off'; }catch(e){}
   var C=window.AudioContext||window.webkitAudioContext; if(!C){ btn.style.display='none'; return; }
   var ctx=null, master, dry, rev, jivari, timer=null, started=false, nextPluck=0, pluckI=0, nextPhrase=0, lastF=0, lastN=null, noiseBuf=null;
