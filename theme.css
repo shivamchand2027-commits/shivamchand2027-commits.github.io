@@ -11,6 +11,8 @@ a{color:#fff;text-underline-offset:3px}
 .vhero.full{min-height:100vh}.vhero.short{min-height:68vh}
 .frame{position:relative;border:1px solid rgba(255,255,255,.78);display:flex;flex-direction:column;min-height:calc(100vh - clamp(88px,12.4vw,132px));padding:18px clamp(14px,2.2vw,28px) clamp(18px,3vw,30px)}
 .vhero.short .frame{min-height:calc(68vh - clamp(88px,12.4vw,132px))}
+.vhero.full .frame{padding-bottom:76px}
+@media (min-width:721px){.vhero.full .hero-low .right{margin-right:120px}}
 .corner{position:absolute;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.85);line-height:1.35;font-weight:500}
 .corner.tl{top:14px;left:clamp(12px,4.6vw,64px)}.corner.tr{top:14px;right:clamp(12px,4.6vw,64px);text-align:right}
 .corner.bl{bottom:14px;left:clamp(12px,4.6vw,64px)}.corner.br{bottom:14px;right:clamp(12px,4.6vw,64px);text-align:right}
