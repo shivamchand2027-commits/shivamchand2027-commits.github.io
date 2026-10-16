@@ -1,5 +1,28 @@
 (function(){
   if(window.ADYA_LOCKED) return;
+  // Accordion: click a step header to open its module
+  function setOpen(head, open){
+    var body = document.getElementById(head.dataset.acc);
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (body) body.classList.toggle('open', open);
+  }
+  var heads = document.querySelectorAll('.acc-head');
+  Array.prototype.forEach.call(heads, function(h){
+    h.addEventListener('click', function(){
+      setOpen(h, h.getAttribute('aria-expanded') !== 'true');
+    });
+  });
+  function openHash(){
+    var id = (location.hash || '').replace('#','');
+    if (!id) return;
+    var sec = document.getElementById(id);
+    var head = sec && sec.querySelector('.acc-head');
+    if (head) setOpen(head, true);
+  }
+  openHash();
+  window.addEventListener('hashchange', function(){ openHash(); });
+  if (!location.hash && heads.length) setOpen(heads[0], true);
+
   var $=function(i){return document.getElementById(i);};
   function n(i){ var v=parseFloat($(i).value); return isNaN(v)?0:v; }
   function f(x){ return (Math.round(x*100)/100).toLocaleString('en-IN'); }
