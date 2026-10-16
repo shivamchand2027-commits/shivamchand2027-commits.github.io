@@ -9,13 +9,13 @@
   try{ if(localStorage.getItem(KEY)===null && localStorage.getItem('lcf_music')!==null){ localStorage.setItem(KEY,localStorage.getItem('lcf_music')); localStorage.removeItem('lcf_music'); } }catch(e){}
   var want=true; try{ want=localStorage.getItem(KEY)!=='off'; }catch(e){}
   var C=window.AudioContext||window.webkitAudioContext; if(!C){ btn.style.display='none'; return; }
-  var SRC='raga-pahad.mp3', VOL=0.16, FADE=2.5;
+  var SRC='raga-pahad-wind.b64', VOL=0.16, FADE=2.5;
   var ctx=null, master=null, buf=null, src=null, started=false, loading=false;
   function ui(){ var on=want&&ctx&&ctx.state==='running'; btn.classList.toggle('on',!!on); if(label) label.textContent=want?'Music on':'Music off'; btn.setAttribute('aria-pressed',want?'true':'false'); }
   function build(){ if(ctx) return; ctx=new C(); master=ctx.createGain(); master.gain.value=0; master.connect(ctx.destination); }
   function load(){ if(buf||loading) return; loading=true;
-    fetch(SRC).then(function(r){ if(!r.ok) throw 0; return r.arrayBuffer(); })
-      .then(function(ab){ build(); return ctx.decodeAudioData(ab); })
+    fetch(SRC).then(function(r){ if(!r.ok) throw 0; return r.text(); })
+      .then(function(t){ var bin=atob(t.replace(/\s/g,'')), ab=new Uint8Array(bin.length); for(var i=0;i<bin.length;i++) ab[i]=bin.charCodeAt(i); build(); return ctx.decodeAudioData(ab.buffer); })
       .then(function(b){ buf=b; if(started) play(); })
       .catch(function(){ loading=false; }); }
   function play(){ if(!buf||!ctx) return;
