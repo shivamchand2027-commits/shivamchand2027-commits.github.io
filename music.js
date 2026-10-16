@@ -5,13 +5,13 @@
    Starts at the first tap/keypress when autoplay is blocked. Mute toggle in the header. */
 (function(){
   var btn=document.getElementById('mute'); if(!btn) return;
-  var label=btn.querySelector('.t'), KEY='adya_music';
+  var KEY='adya_music';
   try{ if(localStorage.getItem(KEY)===null && localStorage.getItem('lcf_music')!==null){ localStorage.setItem(KEY,localStorage.getItem('lcf_music')); localStorage.removeItem('lcf_music'); } }catch(e){}
   var want=true; try{ want=localStorage.getItem(KEY)!=='off'; }catch(e){}
   var C=window.AudioContext||window.webkitAudioContext; if(!C){ btn.style.display='none'; return; }
   var SRC='raga-pahad-wind.b64', VOL=0.16, FADE=2.5;
   var ctx=null, master=null, buf=null, src=null, started=false, loading=false;
-  function ui(){ var on=want&&ctx&&ctx.state==='running'; btn.classList.toggle('on',!!on); if(label) label.textContent=want?'Music on':'Music off'; btn.setAttribute('aria-pressed',want?'true':'false'); }
+  function ui(){ var on=want&&ctx&&ctx.state==='running'; btn.classList.toggle('on',!!on); btn.setAttribute('aria-pressed',want?'true':'false'); }
   function build(){ if(ctx) return; ctx=new C(); master=ctx.createGain(); master.gain.value=0; master.connect(ctx.destination); }
   function load(){ if(buf||loading) return; loading=true;
     fetch(SRC).then(function(r){ if(!r.ok) throw 0; return r.text(); })
