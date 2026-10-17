@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 888 1294" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+<rect width="888" height="1294" fill="#0d1226"/>
+<text x="444" y="40" text-anchor="middle" font-size="34" font-weight="700" fill="#e3aa2e">How a founder moves through Adya Capital</text>
+<g>
+<rect x="95" y="58" width="700" height="130" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+<text x="140" y="140" font-size="26" font-weight="700" fill="#e3aa2e">1</text>
+<text x="444" y="104" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Arrive</text>
+<text x="444" y="156" text-anchor="middle" font-size="19" fill="#c9cfdd">adyacapital.me, direct or invite link ?ref=ADYA-XXXXX</text>
+</g>
+<g stroke="#e3aa2e" stroke-width="3" fill="#e3aa2e"><line x1="444" y1="194" x2="444" y2="222"/><polygon points="437,220 451,220 444,234"/></g>
+<g>
+<rect x="95" y="251" width="700" height="130" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+<text x="140" y="333" font-size="26" font-weight="700" fill="#e3aa2e">2</text>
+<text x="444" y="297" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Invitation gate</text>
+<text x="444" y="349" text-anchor="middle" font-size="19" fill="#c9cfdd">code checked on the server; no code = direct lane (slower)</text>
+</g>
+<g stroke="#e3aa2e" stroke-width="3" fill="#e3aa2e"><line x1="444" y1="387" x2="444" y2="415"/><polygon points="437,413 451,413 444,427"/></g>
+<g>
+<rect x="95" y="444" width="700" height="130" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+<text x="140" y="526" font-size="26" font-weight="700" fill="#e3aa2e">3</text>
+<text x="444" y="490" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Application form</text>
+<text x="444" y="542" text-anchor="middle" font-size="19" fill="#c9cfdd">deck link or PDF upload + short written pitch</text>
+</g>
+<g stroke="#e3aa2e" stroke-width="3" fill="#e3aa2e"><line x1="444" y1="580" x2="444" y2="608"/><polygon points="437,606 451,606 444,620"/></g>
+<g>
+<rect x="95" y="637" width="700" height="130" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+<text x="140" y="719" font-size="26" font-weight="700" fill="#e3aa2e">4</text>
+<text x="444" y="683" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Instant email</text>
+<text x="444" y="735" text-anchor="middle" font-size="19" fill="#c9cfdd">acknowledgement + ticket ADYA-XXXXXX + own 5-use code</text>
+</g>
+<g stroke="#e3aa2e" stroke-width="3" fill="#e3aa2e"><line x1="444" y1="773" x2="444" y2="801"/><polygon points="437,799 451,799 444,813"/></g>
+<g>
+<rect x="95" y="830" width="700" height="130" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+<text x="140" y="912" font-size="26" font-weight="700" fill="#e3aa2e">5</text>
+<text x="444" y="876" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Deck scoring</text>
+<text x="444" y="928" text-anchor="middle" font-size="19" fill="#c9cfdd">100-point rubric, lands in the Scoring tab</text>
+</g>
+<g stroke="#e3aa2e" stroke-width="3" fill="#e3aa2e"><line x1="444" y1="966" x2="444" y2="994"/><polygon points="437,992 451,992 444,1006"/></g>
+<g>
+<rect x="95" y="1023" width="700" height="130" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+<text x="140" y="1105" font-size="26" font-weight="700" fill="#e3aa2e">6</text>
+<text x="444" y="1069" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Your call</text>
+<text x="444" y="1121" text-anchor="middle" font-size="19" fill="#c9cfdd">read deck + score, set Decision in the Sheet</text>
+</g>
+<g stroke="#e3aa2e" stroke-width="3" fill="#e3aa2e"><line x1="444" y1="1159" x2="444" y2="1187"/><polygon points="437,1185 451,1185 444,1199"/></g>
+<g>
+<rect x="95" y="1216" width="700" height="130" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+<text x="140" y="1298" font-size="26" font-weight="700" fill="#e3aa2e">7</text>
+<text x="444" y="1262" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">Founder hears</text>
+<text x="444" y="1314" text-anchor="middle" font-size="19" fill="#c9cfdd">decision email within ~5 min; status page shows outcome + score breakdown</text>
+</g>
+</svg>
