@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 840" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+  <rect width="1140" height="840" fill="#0d1226"/>
+  <text x="570" y="42" text-anchor="middle" font-size="34" font-weight="700" fill="#e3aa2e">What talks to what</text>
+
+  <g>
+    <rect x="30" y="110" width="410" height="290" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+    <text x="235" y="170" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff">Site</text>
+    <text x="235" y="250" text-anchor="middle" font-size="20" fill="#c9cfdd">adyacapital.me</text>
+    <text x="235" y="278" text-anchor="middle" font-size="20" fill="#c9cfdd">5 static pages on GitHub Pages</text>
+    <text x="235" y="306" text-anchor="middle" font-size="20" fill="#c9cfdd">index - faq - communities</text>
+    <text x="235" y="334" text-anchor="middle" font-size="20" fill="#c9cfdd">vault - padhai</text>
+  </g>
+
+  <g>
+    <rect x="470" y="110" width="320" height="290" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+    <text x="630" y="170" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff">Apps Script</text>
+    <text x="630" y="292" text-anchor="middle" font-size="20" fill="#c9cfdd">web app /exec</text>
+  </g>
+
+  <g>
+    <rect x="820" y="110" width="310" height="290" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+    <text x="975" y="170" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff">Google Sheet</text>
+    <text x="975" y="230" text-anchor="middle" font-size="20" fill="#c9cfdd">ledger</text>
+    <text x="975" y="286" text-anchor="middle" font-size="20" fill="#c9cfdd">Submissions - Scoring</text>
+    <text x="975" y="314" text-anchor="middle" font-size="20" fill="#c9cfdd">Settings - Referrals</text>
+    <text x="975" y="342" text-anchor="middle" font-size="20" fill="#c9cfdd">Queries - Email log</text>
+  </g>
+
+  <g stroke="#e3aa2e" stroke-width="3" fill="#e3aa2e">
+    <line x1="440" y1="255" x2="466" y2="255"/>
+    <polygon points="466,248 466,262 480,255"/>
+    <line x1="790" y1="230" x2="816" y2="230"/>
+    <polygon points="816,223 816,237 830,230"/>
+    <line x1="820" y1="288" x2="794" y2="288"/>
+    <polygon points="794,281 794,295 780,288"/>
+    <line x1="512" y1="400" x2="390" y2="560"/>
+    <polygon points="384,552 399,556 388,568"/>
+    <line x1="668" y1="400" x2="775" y2="560"/>
+    <polygon points="785,556 780,570 768,561"/>
+  </g>
+  <g font-size="17" fill="#c9cfdd">
+    <text x="453" y="222">calls</text>
+    <text x="798" y="206">writes</text>
+    <text x="790" y="312">reads</text>
+    <text x="330" y="470">saves PDFs</text>
+    <text x="770" y="470">sends email</text>
+  </g>
+
+  <g>
+    <rect x="80" y="575" width="420" height="170" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+    <text x="290" y="642" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff">Drive folder</text>
+    <text x="290" y="698" text-anchor="middle" font-size="20" fill="#c9cfdd">uploaded deck PDFs</text>
+  </g>
+
+  <g>
+    <rect x="585" y="575" width="480" height="170" rx="14" fill="#1b2340" stroke="#5a6382" stroke-width="2"/>
+    <text x="825" y="642" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff">Founder's inbox</text>
+    <text x="825" y="698" text-anchor="middle" font-size="20" fill="#c9cfdd">ack - decision - deck feedback - query reply</text>
+  </g>
+</svg>
