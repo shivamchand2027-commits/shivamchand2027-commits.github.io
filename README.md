@@ -4,6 +4,8 @@ Invitation-only venture network for founders. This repository is the public webs
 
 Live: https://adyacapital.me/
 
+![What talks to what](docs/images/system-map.svg)
+
 ## What it is
 
 A static site with an invite gate. Visitors enter an invite code (ADYA-xxxxx) or apply directly through the slower open lane. Every applicant gets an instant acknowledgement email, a ticket, and their own 5-use referral code. Decks are scored on a 100-point rubric, the Investment Committee decides in the backend Sheet, and the decision reaches the founder by email. Founders can check their status and full score breakdown anytime with email + ticket.
