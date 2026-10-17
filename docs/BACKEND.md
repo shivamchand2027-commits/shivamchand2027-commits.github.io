@@ -2,6 +2,8 @@
 
 The site is static. Everything dynamic runs through one Google Apps Script web app (the `/exec` URL in `config.js`), bound to a Google Sheet.
 
+![System map](images/system-map.svg)
+
 ## What the backend does
 
 | Area | Behaviour |
