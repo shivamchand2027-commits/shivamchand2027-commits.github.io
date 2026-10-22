@@ -10,7 +10,7 @@
 - Submissions sheet gained columns N-Q: Fee INR, Fee method, UTR / payment ref, Fee status (auto-seeded).
 - UPI-UTR manual bridge retained as a hidden fallback (provider switch in config.js).
 - Fee mode flag in Code.gs: FEE_MODE 'soft' pre-live, 'enforce' once live keys are in.
-- Backend v12 deployed with TEST keys (order creation verified live: test order created successfully from the deployed web app). End-to-end click-test payment: IN PROGRESS. Live keys after Razorpay KYC clears (1-2 business days).
+- Backend v12 deployed with TEST keys (order creation verified live: test order created successfully from the deployed web app). End-to-end click-test PASSED (22 Oct 19:05 IST): test netbanking payment pay_TqyKq5fwbScPXm verified by the backend (signature + status + amount), Sheet row written with fee columns N-Q ('paid (razorpay captured)'), ack email sent, ticket ADYA-NBG727. Razorpay checkout note: the test bank simulator opens in a popup tab. Live keys after Razorpay KYC clears (1-2 business days).
 
 - SEO fix (Google Search Console: "Excluded by noindex"): Founder Academy (padhai), Fund Vault, Communities and FAQ all carried `noindex,follow` while sitemap.xml listed them and robots.txt Disallowed two of them - contradictory. All four pages are now `index,follow,max-image-preview:large` with self-referencing canonical URLs; robots.txt now allows the whole site; sitemap lastmod bumped. Homepage was already correct; "/index.html -> /" canonical consolidation is expected behavior.
 
