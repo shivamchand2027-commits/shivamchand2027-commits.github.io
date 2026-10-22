@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://script.google.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="skyline.jpg" fetchpriority="high"><link rel="preload" as="image" href="mark-t.png">
+<link rel="preload" as="image" href="mark-t.png">
 <link rel="preload" as="image" href="skyline.webp" fetchpriority="high"><link rel="stylesheet" href="theme.css">    <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -21,7 +21,7 @@
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "yz0hhco7fo");
     </script>
-</head><body>
+</head><body><a class="skip" href="#main">Skip to main content</a>
 <div class="bg" aria-hidden="true"></div>
 <div id="gate"><section class="vhero full"><div class="frame"><nav class="nav"><a class="logo" href="index.html" aria-label="Adya Capital"><img class="lmark" src="mark-t.png" alt="" width="34" height="34"><span>Adya<br>Capital</span></a><div class="links"><a href="index.html" class="here">Overview</a><a href="vault.html">Fund Vault</a><a href="padhai.html">Founder Academy</a><a href="communities.html">Communities</a><a href="faq.html">FAQ</a><a href="index.html#status">Application Status</a></div><a class="btn sm cta" href="#invite">Request access<span class="i">+</span></a></nav>
 <div class="hero-body"><div><div class="glogo" id="glogo"><img src="mark-t.png" alt="" width="120" height="120"><div class="gtxt"><b>ADYA</b><i></i><em>CAPITAL</em></div></div><div class="pills"><span class="pill">By invitation only</span><span class="pill">Most applicants are declined</span><span class="pill">Est. 2026</span></div>
@@ -43,7 +43,7 @@
 <div class="right"><a class="btn glass lg" href="vault.html"><span>Explore the Fund Vault</span><span class="i">&#9638;</span></a></div></div></div>
 </div><div class="corner tl">Access is earned,<br>never granted</div><div class="corner tr">By invitation<br>only</div><div class="corner bl">Adya Capital</div></header>
 
-<main>
+<main id="main">
   <section class="card hidden" id="refCard">
     <h2>Your nominations</h2>
     <p class="lead">Your name stands behind every founder you invite. Nominate only people you would vouch for: those who earn a place, not those who ask for one.</p>
@@ -94,7 +94,7 @@
           <button type="button" class="tab" data-t="pdf">PDF upload</button>
         </div>
         <div class="pane" id="pane-link">
-          <input type="url" name="driveLink" id="driveLink" placeholder="https://drive.google.com/... (set access to Anyone with the link)">
+          <input type="url" name="driveLink" id="driveLink" aria-label="Link to your pitch deck (Google Drive link with access set to Anyone with the link)" placeholder="https://drive.google.com/... (set access to Anyone with the link)">
         </div>
         <div class="pane hidden" id="pane-pdf">
           <label class="drop" id="drop" style="margin:0"><input type="file" id="pdf" accept="application/pdf,.pdf"><span id="dropTxt">Choose a PDF (max 10 MB)</span></label>

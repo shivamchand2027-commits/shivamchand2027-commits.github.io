@@ -177,3 +177,7 @@ footer{position:relative;z-index:2;text-align:center;color:rgba(255,255,255,.7);
 .why b{display:block;font-size:14.5px;font-weight:600;margin-bottom:3px}
 .why p{margin:0;font-size:14px;color:var(--mut);line-height:1.6}
 .kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78);margin:16px 0 8px;font-weight:500}
+
+.skip{position:fixed;top:-70px;left:16px;z-index:200;background:#2a0a14;color:#e8b98a;padding:10px 16px;border-radius:8px;font-size:13px;text-decoration:none;transition:top .2s;border:1px solid rgba(232,185,138,.4)}
+.skip:focus{top:12px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,.skip:focus-visible{outline:2px solid #e8b98a;outline-offset:3px}
