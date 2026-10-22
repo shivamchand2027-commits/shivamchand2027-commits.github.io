@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /vault.html
-Disallow: /padhai.html
 
 Sitemap: https://adyacapital.me/sitemap.xml
