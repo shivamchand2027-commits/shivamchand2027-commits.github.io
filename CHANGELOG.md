@@ -47,3 +47,11 @@
 - Metrics hygiene: Clarity snippet skips loading on internal test sessions (`?internal=1` sets localStorage `adya_internal=1`, `?internal=0` clears). Real visitor tracking unchanged.
 - robots.txt: verified the old `Disallow: /vault.html` / `Disallow: /padhai.html` lines are gone live; re-indexing requested in Search Console for faq, communities, vault and padhai.
 - Verified post-deploy: full Apply-anyway flow click-tested on prod (form -> pay step -> Razorpay checkout modal opens, closed without paying).
+
+## 23 Oct 2026 - Step 5 polish: SEO, structured data, accessibility
+
+- Sub-pages (faq, communities, vault, padhai) now carry full Open Graph + Twitter Card meta and per-page WebPage JSON-LD; faq.html gained FAQPage structured data (24 Q&A pairs) for Google rich results.
+- Accessibility: skip-to-main-content link on every page, gold :focus-visible ring, aria-label on the deck-link input.
+- Footers: all five pages now carry the same footer; the stale FAQ footer line "No money is collected from applicants" was replaced with the accurate Rs 499 open-application wording (matching the homepage footer).
+- Removed stale skyline.jpg preloads (CSS uses skyline.webp); sub-pages now preload the webp hero.
+- Verified live on prod: all 5 pages serve the new markup (skip link, JSON-LD, OG, footers); payment flow click-tested on the preview twin before deploy.
