@@ -174,3 +174,10 @@ footer{position:relative;z-index:2;text-align:center;color:rgba(255,255,255,.7);
 .payqr{width:180px;height:180px;border-radius:12px;background:#fff;padding:6px;box-sizing:border-box}
 .paybox-r{flex:1;min-width:0}
 @media(max-width:560px){.paybox{flex-direction:column}.payqr{width:160px;height:160px}}
+
+/* Why Rs 499 explainer */
+.whybox{margin:20px 0;padding:20px;border:1px solid var(--line);border-radius:4px;background:rgba(255,255,255,.05)}
+.whybox-tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--mut);margin:0 0 14px}
+.why{margin:0 0 14px}.why:last-child{margin-bottom:0}
+.why b{display:block;font-size:14.5px;font-weight:600;margin-bottom:3px}
+.why p{margin:0;font-size:14px;color:var(--mut);line-height:1.6}
