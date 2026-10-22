@@ -80,7 +80,6 @@
        LS.set('adya_ticket',{email:payload.email,ticket:j.ticket,code:j.code});
        $('ticketNo').textContent=j.ticket; $('myCode').textContent=j.code; $('invLeft').textContent=j.invites;
        $('sEmail').value=payload.email; $('sTicket').value=j.ticket; setShare(j.code);
-       if(payload.feeMethod==='upi'&&payload.utr){ $('feeUtr').textContent=payload.utr; $('feePend').classList.remove('hidden'); }
        if(payload.feeMethod==='razorpay'&&$('feePaidRzp')) $('feePaidRzp').classList.remove('hidden');
        $('formCard').classList.add('hidden'); if($('payCard')) $('payCard').classList.add('hidden'); $('doneCard').classList.remove('hidden');
        $('doneCard').scrollIntoView({behavior:'smooth'});
@@ -111,14 +110,9 @@
 
   /* ---------- open-application fee (Rs 499) ---------- */
   $('payBack').addEventListener('click',function(){ $('payCard').classList.add('hidden'); $('formCard').classList.remove('hidden'); $('formCard').scrollIntoView({behavior:'smooth'}); var pb=$('payBtn'); pb.disabled=false; $('payTxt').textContent=rzpMode()?'Pay Rs 499 & submit':'Submit application'; });
-  $('upiCopy').addEventListener('click',function(){ copyText($('upiId').textContent,this); });
   function rzpMode(){ return window.AdyaPay&&AdyaPay.enabled()&&(window.PAY_CONFIG||{}).provider==='razorpay'; }
   function setupPayCard(){
     var rzp=rzpMode();
-    if($('upiBlock')) $('upiBlock').classList.toggle('hidden',rzp);
-    if($('rzpBlock')) $('rzpBlock').classList.toggle('hidden',!rzp);
-    if($('feeNoteUpi')) $('feeNoteUpi').classList.toggle('hidden',rzp);
-    if($('feeNoteRzp')) $('feeNoteRzp').classList.toggle('hidden',!rzp);
     $('payTxt').textContent=rzp?'Pay Rs 499 & submit':'Submit application';
   }
   $('payBtn').addEventListener('click',function(){
@@ -140,11 +134,7 @@
       });
       return;
     }
-    var utr=$('utr').value.trim();
-    if(!/^\d{12}$/.test(utr)){ perr.textContent='Enter the 12-digit UTR from your UPI app after paying Rs 499. The application submits only with it.'; return; }
-    pendingPayload.utr=utr; pendingPayload.feeInr=499; pendingPayload.feeMethod='upi'; pendingPayload.feeStatus='pending_verification';
-    pb.disabled=true; $('payTxt').textContent='Submitting...';
-    submitApp(pendingPayload);
+    perr.textContent='Payments are being set up. Please try again shortly.';
   });
 
   /* ---------- copy / share ---------- */

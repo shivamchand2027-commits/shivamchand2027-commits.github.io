@@ -169,11 +169,6 @@ footer{position:relative;z-index:2;text-align:center;color:rgba(255,255,255,.7);
 .lg-c .glogo{align-items:center;gap:16px}.lg-c .glogo img{width:74px;height:74px}.lg-c .gtxt i{margin-top:9px;height:1.5px;background:linear-gradient(90deg,#e8b98a,rgba(232,185,138,.7))}.lg-c .gtxt b{font-size:26px}.lg-c .gtxt em{margin-top:8px}
 @media(max-width:640px){.lg-a .glogo img{width:130px;height:130px}.lg-b .glogo img{width:92px;height:92px}.lg-c .glogo img{width:58px;height:58px}.gtxt b{font-size:22px!important}.gtxt em{font-size:9.5px}}
 
-/* Open application fee (UPI) */
-.paybox{display:flex;gap:18px;align-items:flex-start;margin-top:16px}
-.payqr{width:180px;height:180px;border-radius:12px;background:#fff;padding:6px;box-sizing:border-box}
-.paybox-r{flex:1;min-width:0}
-@media(max-width:560px){.paybox{flex-direction:column}.payqr{width:160px;height:160px}}
 
 /* Why Rs 499 explainer */
 .whybox{margin:20px 0;padding:20px;border:1px solid var(--line);border-radius:4px;background:rgba(255,255,255,.05)}
