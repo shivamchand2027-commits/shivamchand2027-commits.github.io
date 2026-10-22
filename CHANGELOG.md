@@ -1,5 +1,13 @@
 # Changelog
 
+## October 22, 2026 (evening)
+
+### Interim: Rs 499 fee step live with UPI + UTR (until Razorpay KYC clears)
+
+- The full fee module (fee card, "Why Rs 499" explainer, pay.js gate, backend fee columns) is now live on the production site. Provider flag set to `upi`: applicants pay Rs 499 to UPI 8860237965@yescred and submit their 12-digit UTR; the application writes only with it (Fee status: pending_verification, verified manually in the Sheet).
+- "Why Rs 499" explainer added at the fee step: serious read with no credibility filter + detailed team feedback, golden pass to gold features (VC connects, founder community, step-by-step guidance), honest terms (fee buys the read, not admission).
+- Razorpay stays the primary path: checkout code and config remain in place behind the provider flag; flip `provider` to "razorpay" and swap test keys for live keys when KYC clears. End-to-end click-test passed 7:24 PM IST (ticket ADYA-YPNNRC, UPI + UTR, Sheet row verified, test row removed after).
+
 ## October 22, 2026
 
 ### Open-lane Rs 499 application fee (Razorpay Standard Checkout)
