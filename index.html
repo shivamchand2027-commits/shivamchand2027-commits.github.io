@@ -29,7 +29,7 @@
 <form id="gateForm" class="gform" novalidate><input id="invite" placeholder="INVITATION CODE (ADYA-XXXXX)" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Invitation code">
 <button class="btn lg" type="submit" id="gateBtn"><span id="gateTxt">Request entry</span><span class="i">&rarr;</span></button></form>
 <p class="gmsg" id="gateMsg" role="status"></p>
-<p class="gmsg" style="opacity:.85">No invitation? <a href="#" id="openApply" style="color:inherit"><u>Apply anyway</u></a> - the Committee reads every application. Nominated founders are reviewed first.</p></div>
+<p class="gmsg" style="opacity:.85">No invitation? <a href="#" id="openApply" style="color:inherit"><u>Apply anyway</u></a> - the Committee reads every application (a one-time Rs 499 review fee applies). Nominated founders are reviewed first.</p></div>
 <div class="right"><a class="btn glass lg" href="#" id="toStatus"><span>Check application status</span><span class="i">&#9638;</span></a></div></div></div>
 </div><div class="corner tl">Access is earned,<br>never granted</div><div class="corner tr">By invitation<br>only</div><div class="corner bl">Adya Capital</div></section></div>
 
@@ -70,6 +70,7 @@
   <section class="card" id="formCard">
     <h2>Submit your application</h2>
     <p class="lead">This is not a form for everyone. The Investment Committee reads every application and declines most. Apply only if your company can stand up to scrutiny. Approved founders receive a direct line to the Managing Partner.</p>
+    <p class="tiny hidden" id="feeNote" style="margin:0 0 12px">Open application: a one-time review fee of <b>Rs 499</b> is collected when you submit. Founders applying with an invitation code pay nothing.</p>
     <form id="pitch" novalidate>
       <label>Email <small>(used to look up your application status)</small>
         <input type="email" name="email" id="email" required placeholder="founder@company.com" autocomplete="email"></label>
@@ -103,11 +104,39 @@
     </form>
   </section>
 
+  <section class="card hidden" id="payCard">
+    <h2>Open application fee</h2>
+    <p class="lead">You are applying without an invitation, so a one-time review fee of <b>Rs 499</b> applies. It keeps the queue serious: every application is read by the Investment Committee, and most are still declined. Founders with an invitation code apply free.</p>
+    <div id="upiBlock">
+      <div class="paybox">
+        <img src="upi-qr.png" alt="UPI QR code to pay Rs 499 to Adya Capital" class="payqr" width="180" height="180">
+        <div class="paybox-r">
+          <div class="ticket"><span>Fee</span> <b>&#8377;499</b></div>
+          <div class="code-row" style="margin-top:10px"><div class="code" id="upiId">8860237965@yescred</div><button class="copybtn" id="upiCopy" type="button">Copy UPI ID</button></div>
+          <p class="tiny">Scan the QR or pay the UPI ID from any UPI app (GPay, PhonePe, Paytm, BHIM). Amount: exactly Rs 499.</p>
+        </div>
+      </div>
+      <label style="margin-top:16px">UPI transaction ID (UTR) <small>(12 digits, in your UPI app's payment history after paying)</small>
+        <input type="text" id="utr" inputmode="numeric" autocomplete="off" maxlength="18" placeholder="e.g. 432109876512"></label>
+    </div>
+    <div id="rzpBlock" class="hidden">
+      <div class="ticket"><span>Fee</span> <b>&#8377;499</b></div>
+      <p class="tiny" style="margin-top:10px">Pay securely by UPI, card or netbanking via Razorpay. A secure payment window opens when you tap the button below; you come straight back here after paying.</p>
+    </div>
+    <button type="button" class="btn lg" id="payBtn" style="margin-top:14px"><span id="payTxt">Submit application</span><span class="i">&rarr;</span></button>
+    <p class="err" id="payErr" role="alert"></p>
+    <p class="tiny" id="feeNoteUpi">The Committee verifies every payment before review begins. A wrong or fake UTR declines the application. The fee pays for review only - it does not buy admission, and it does not change the Committee's bar.</p>
+    <p class="tiny hidden" id="feeNoteRzp">Payments are processed securely by Razorpay; we never see your card or bank details. The fee pays for review only - it does not buy admission, and it does not change the Committee's bar.</p>
+    <button class="btn ghost sm" id="payBack" type="button" style="margin-top:12px">Back to the form</button>
+  </section>
+
   <section class="card hidden" id="doneCard">
     <h2>Application received</h2>
     <p class="lead">Your application is with the Investment Committee. Most do not pass, and we will not chase you for more.</p>
     <div class="ticket"><span>Ticket</span> <b id="ticketNo">ADYA-XXXXXX</b> <button class="copybtn" id="copyTicket" type="button">Copy</button></div>
     <p class="tiny">Save this ticket. You need your email and ticket to check your status.</p>
+    <p class="tiny hidden" id="feePend">Fee: Rs 499 by UPI (UTR <b id="feeUtr"></b>) - received, verification pending. Review starts once the payment is verified.</p>
+    <p class="tiny hidden" id="feePaidRzp">Fee: Rs 499 paid via Razorpay - receipt emailed by Razorpay. Your application is in the review queue.</p>
     <div class="refbox">
       <h3>You may nominate <span id="invLeft">5</span> founders. Choose carefully.</h3>
       <p>Your name stands behind every founder you invite. Nominate only people you would vouch for: those who earn a place, not those who ask for one.</p>
@@ -138,17 +167,18 @@
   <section class="card faq">
     <h2>Frequently asked questions</h2>
     <details open><summary>Who gets in?</summary><p>A small minority. Most applications are declined. The Investment Committee looks for real traction, founders who have already done the work, and a credible reason to be in the room. Founders who treat access as a formality are not admitted.</p></details>
-    <details><summary>What is Adya Capital?</summary><p>An invitation-only founder network and funding desk. Anyone may apply - an invitation code is the fast lane, not a requirement. No money is collected from applicants, only decks.</p></details>
+    <details><summary>What is Adya Capital?</summary><p>An invitation-only founder network and funding desk. Anyone may apply - an invitation code is the fast lane, not a requirement. No money buys admission: open applications carry a one-time Rs 499 review fee, and invited founders apply free.</p></details>
     <details><summary>Why is access by invitation only?</summary><p>Access is a filter, not a feature. It keeps the room small and serious. Every admitted member may nominate up to 5 founders, and their name stands behind each nomination, so nominations are made carefully.</p></details>
     <details><summary>What happens after I apply?</summary><p>The Investment Committee reviews your application and emails you when there is a decision. You can also check your status anytime with your email and ticket. Approved founders receive a direct line to the Managing Partner. Declined founders may reapply only with materially stronger traction.</p></details>
     <details><summary>How should I prepare my deck?</summary><p>Aim for 10 to 15 slides covering the problem, solution, market, traction, business model, team and the ask. Share a Drive link with access set to Anyone with the link, or upload a PDF up to 10 MB.</p></details>
-    <details><summary>Is there a fee?</summary><p>No. You do not pay for access. You earn it.</p></details>
+    <details><summary>Is there a fee?</summary><p>Founders applying with an invitation code pay nothing. Open applications (without a code) carry a one-time Rs 499 review fee - it pays for the Committee's time, not for admission, and most applicants are still declined.</p></details>
     <p style="margin-top:14px"><a href="faq.html">Every question about applying, membership and deck review &rarr;</a></p>
   </section>
 </main>
-<footer><p>Adya Capital. By invitation only. Access is earned, never granted. No money is collected from applicants. Information on this site is educational and is not financial, legal or investment advice.</p></footer>
+<footer><p>Adya Capital. By invitation only. Access is earned, never granted. Open applications carry a one-time Rs 499 review fee; invited founders apply free. Information on this site is educational and is not financial, legal or investment advice.</p></footer>
 <button id="mute" class="" type="button" aria-label="Toggle background music" title="Background music"><span class="mic">&#9834;</span><span class="mlabel">Music</span><span class="track"><span class="knob"></span></span></button><div id="toast" class="toast"></div>
 <script>(function(){var m=location.search.match(/logo=([abc])/);document.documentElement.className="lg-"+(m?m[1]:"c")})()</script><script defer src="config.js"></script>
+<script defer src="pay.js"></script>
 <script defer src="music.js"></script>
 <script defer src="app.js"></script>
 </body></html>

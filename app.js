@@ -28,6 +28,7 @@
   if(urlRef) $('invite').value=urlRef; else if(saved) $('invite').value=saved.code;
   function setBadge(t){ $('vipBadge').textContent=t; }
   function openGate(by){ try{localStorage.setItem('adya_member','1');}catch(e){}
+    if($('feeNote')) $('feeNote').classList.add('hidden');
     $('gate').classList.add('open'); setTimeout(function(){ $('gate').classList.add('hidden'); window.scrollTo(0,0); },520);
     setBadge('Invitation '+invite+((by&&by!=='Adya Capital'&&by!=='a member'&&by!=='ek member')?' - nominated by '+by:'')); }
   function gateMsg(m,bad){ var g=$('gateMsg'); g.textContent=m; g.className='gmsg'+(bad?' bad':''); }
@@ -48,6 +49,7 @@
   $('openApply').addEventListener('click',function(e){ e.preventDefault();
     invite='';
     setBadge('Open application');
+    if($('feeNote')) $('feeNote').classList.remove('hidden');
     gateMsg('');
     $('gate').classList.add('open'); setTimeout(function(){ $('gate').classList.add('hidden'); window.scrollTo(0,0); },520);
   });
@@ -65,6 +67,26 @@
   function fail(m){ err.textContent=m; }
   function b64(file){ return new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){ res(String(r.result).split(',')[1]); }; r.onerror=rej; r.readAsDataURL(file); }); }
   var ST='Submit application';
+  var pendingPayload=null;
+  function submitApp(payload){
+    var btn=$('submitBtn'); btn.disabled=true; $('submitTxt').textContent='Submitting...';
+    return fetch(apiUrl(),{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
+     .then(function(r){ return r.json(); })
+     .then(function(j){
+       btn.disabled=false; $('submitTxt').textContent=ST;
+       if(!j.ok){ var m={bad_email:'The email address looks invalid.',too_big:'The file is too large.',no_deck:'A deck is required.',payment_not_verified:'The payment could not be verified. If money was taken, it is auto-refunded by Razorpay - please try again or write to us.',fee_required:'The Rs 499 review fee is required for open applications.',bad_utr:'Enter the 12-digit UTR from your UPI app after paying.',bad_invite:'This invitation code is no longer valid.',invite_used_up:'This code has no nominations left.'}[j.error]||'Something went wrong on our side. Please try again.';
+         if($('payCard')&&!$('payCard').classList.contains('hidden')){ $('payCard').classList.add('hidden'); $('formCard').classList.remove('hidden'); var pb2=$('payBtn'); if(pb2){ pb2.disabled=false; $('payTxt').textContent=rzpMode()?'Pay Rs 499 & submit':'Submit application'; } }
+         return fail(m); }
+       LS.set('adya_ticket',{email:payload.email,ticket:j.ticket,code:j.code});
+       $('ticketNo').textContent=j.ticket; $('myCode').textContent=j.code; $('invLeft').textContent=j.invites;
+       $('sEmail').value=payload.email; $('sTicket').value=j.ticket; setShare(j.code);
+       if(payload.feeMethod==='upi'&&payload.utr){ $('feeUtr').textContent=payload.utr; $('feePend').classList.remove('hidden'); }
+       if(payload.feeMethod==='razorpay'&&$('feePaidRzp')) $('feePaidRzp').classList.remove('hidden');
+       $('formCard').classList.add('hidden'); if($('payCard')) $('payCard').classList.add('hidden'); $('doneCard').classList.remove('hidden');
+       $('doneCard').scrollIntoView({behavior:'smooth'});
+     })
+     .catch(function(){ btn.disabled=false; $('submitTxt').textContent=ST; fail('Connection problem. Please try again.'); });
+  }
   $('pitch').addEventListener('submit',function(e){
     e.preventDefault(); err.textContent='';
     var f=e.target, email=f.email.value.trim();
@@ -72,20 +94,57 @@
     var payload={email:email,name:f.name.value.trim(),startup:f.startup.value.trim(),target:target}, p=Promise.resolve(); if(invite) payload.invite=invite;
     if(mode==='link'){ var l=f.driveLink.value.trim(); if(!/^https?:\/\/\S+\.\S+/.test(l)) return fail('Please add a link to your deck, or upload a PDF.'); payload.driveLink=l; }
     else { var file=$('pdf').files[0]; if(!file) return fail('Please choose a PDF to upload.'); if(!/pdf$/i.test(file.type)&&!/\.pdf$/i.test(file.name)) return fail('Only PDF files are accepted.'); if(file.size>10*1024*1024) return fail('The file is larger than 10 MB. Please upload a smaller PDF or share a link.'); p=b64(file).then(function(d){ payload.fileData=d; payload.fileName=file.name; }); }
+    payload.clientBuild='rzp-preview';
     if(!apiUrl()) return fail('Submissions are being set up. Please try again shortly.');
-    var btn=$('submitBtn'); btn.disabled=true; $('submitTxt').textContent='Submitting...';
-    p.then(function(){ return fetch(apiUrl(),{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}); })
-     .then(function(r){ return r.json(); })
-     .then(function(j){
-       btn.disabled=false; $('submitTxt').textContent=ST;
-       if(!j.ok){ var m={bad_email:'The email address looks invalid.',too_big:'The file is too large.',no_deck:'A deck is required.',bad_invite:'This invitation code is no longer valid.',invite_used_up:'This code has no nominations left.'}[j.error]||'Something went wrong on our side. Please try again.'; return fail(m); }
-       LS.set('adya_ticket',{email:email,ticket:j.ticket,code:j.code});
-       $('ticketNo').textContent=j.ticket; $('myCode').textContent=j.code; $('invLeft').textContent=j.invites;
-       $('sEmail').value=email; $('sTicket').value=j.ticket; setShare(j.code);
-       $('formCard').classList.add('hidden'); $('doneCard').classList.remove('hidden');
-       $('doneCard').scrollIntoView({behavior:'smooth'});
-     })
-     .catch(function(){ btn.disabled=false; $('submitTxt').textContent=ST; fail('Connection problem. Please try again.'); });
+    p.then(function(){
+      if(!invite){
+        pendingPayload=payload;
+        $('payErr').textContent='';
+        setupPayCard();
+        $('formCard').classList.add('hidden'); $('payCard').classList.remove('hidden');
+        $('payCard').scrollIntoView({behavior:'smooth'});
+        return;
+      }
+      submitApp(payload);
+    });
+  });
+
+  /* ---------- open-application fee (Rs 499) ---------- */
+  $('payBack').addEventListener('click',function(){ $('payCard').classList.add('hidden'); $('formCard').classList.remove('hidden'); $('formCard').scrollIntoView({behavior:'smooth'}); var pb=$('payBtn'); pb.disabled=false; $('payTxt').textContent=rzpMode()?'Pay Rs 499 & submit':'Submit application'; });
+  $('upiCopy').addEventListener('click',function(){ copyText($('upiId').textContent,this); });
+  function rzpMode(){ return window.AdyaPay&&AdyaPay.enabled()&&(window.PAY_CONFIG||{}).provider==='razorpay'; }
+  function setupPayCard(){
+    var rzp=rzpMode();
+    if($('upiBlock')) $('upiBlock').classList.toggle('hidden',rzp);
+    if($('rzpBlock')) $('rzpBlock').classList.toggle('hidden',!rzp);
+    if($('feeNoteUpi')) $('feeNoteUpi').classList.toggle('hidden',rzp);
+    if($('feeNoteRzp')) $('feeNoteRzp').classList.toggle('hidden',!rzp);
+    $('payTxt').textContent=rzp?'Pay Rs 499 & submit':'Submit application';
+  }
+  $('payBtn').addEventListener('click',function(){
+    var perr=$('payErr'); perr.textContent='';
+    if(!pendingPayload){ perr.textContent='Your form details were lost. Please go back and submit again.'; return; }
+    var pb=$('payBtn');
+    if(rzpMode()){
+      pb.disabled=true; $('payTxt').textContent='Opening secure payment...';
+      AdyaPay.charge({ name:pendingPayload.name, email:pendingPayload.email,
+        onSuccess:function(r){
+          pendingPayload.feeInr=499; pendingPayload.feeMethod='razorpay';
+          pendingPayload.feeRef=r.paymentId; pendingPayload.feeOrderId=r.orderId; pendingPayload.feeSignature=r.signature;
+          pendingPayload.feeStatus='paid_unverified';
+          $('payTxt').textContent='Submitting...';
+          submitApp(pendingPayload);
+        },
+        onDismiss:function(){ pb.disabled=false; $('payTxt').textContent='Pay Rs 499 & submit'; perr.textContent='Payment was not completed. The application submits only after the Rs 499 payment goes through.'; },
+        onError:function(m){ pb.disabled=false; $('payTxt').textContent='Pay Rs 499 & submit'; perr.textContent=m||'Payment failed. No money was taken - please try again.'; }
+      });
+      return;
+    }
+    var utr=$('utr').value.trim();
+    if(!/^\d{12}$/.test(utr)){ perr.textContent='Enter the 12-digit UTR from your UPI app after paying Rs 499. The application submits only with it.'; return; }
+    pendingPayload.utr=utr; pendingPayload.feeInr=499; pendingPayload.feeMethod='upi'; pendingPayload.feeStatus='pending_verification';
+    pb.disabled=true; $('payTxt').textContent='Submitting...';
+    submitApp(pendingPayload);
   });
 
   /* ---------- copy / share ---------- */
