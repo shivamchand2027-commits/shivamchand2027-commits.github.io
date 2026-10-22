@@ -1,5 +1,11 @@
 # Changelog
 
+## October 22, 2026 (late evening)
+
+### UPI-UTR removed from the fee step
+
+- Shivam called off the UPI bridge: UPI block, UTR flow, QR asset and styles stripped from production (7:31 PM flag flip, code removal after). The fee step shows only the Razorpay path (test keys until KYC clears). Under review: Razorpay dynamic per-application UPI QR as the live UX.
+
 ## October 22, 2026 (evening)
 
 ### Interim: Rs 499 fee step live with UPI + UTR (until Razorpay KYC clears)
