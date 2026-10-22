@@ -39,3 +39,11 @@
 ## October 17, 2026
 
 - Mobile polish: nav links are ~40px tap targets, chips 42px, vault and Academy pills enlarged, micro text bumped (corner labels 10.5px, community tags 11px), communities rows stack on small screens. Verified at 360/390/412px with zero horizontal overflow on all five pages.
+
+## 23 Oct 2026 - Clarity quick-backs + INP hardening + metrics hygiene
+
+- Hero: added a kicker line above the H1 ("Invitation-only venture network for founders") and rewrote the hero sub-copy to lead with the value stack (direct VC connects, closed founder community, deck-to-decision pathway) so first-time visitors understand Adya's purpose in seconds (targets the 24.1% quick-backs signal from Microsoft Clarity).
+- INP/performance hardening: hero background switched from skyline.jpg (135 KB) to skyline.webp (82 KB, saturation baked in); removed the runtime `filter: saturate()` on the background layer; removed backdrop-blur from form inputs and pills; hero image preloaded on the landing page.
+- Metrics hygiene: Clarity snippet skips loading on internal test sessions (`?internal=1` sets localStorage `adya_internal=1`, `?internal=0` clears). Real visitor tracking unchanged.
+- robots.txt: verified the old `Disallow: /vault.html` / `Disallow: /padhai.html` lines are gone live; re-indexing requested in Search Console for faq, communities, vault and padhai.
+- Verified post-deploy: full Apply-anyway flow click-tested on prod (form -> pay step -> Razorpay checkout modal opens, closed without paying).
