@@ -68,23 +68,49 @@
   function b64(file){ return new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){ res(String(r.result).split(',')[1]); }; r.onerror=rej; r.readAsDataURL(file); }); }
   var ST='Submit application';
   var pendingPayload=null;
+  function showDone(payload,ticket,code,recovered,invites){
+    LS.set('adya_ticket',{email:payload.email,ticket:ticket,code:code});
+    $('ticketNo').textContent=ticket; $('myCode').textContent=code||'-'; $('invLeft').textContent=(invites==null?'':invites);
+    $('sEmail').value=payload.email; $('sTicket').value=ticket; if(code) setShare(code);
+    if(payload.feeMethod==='razorpay'&&$('feePaidRzp')) $('feePaidRzp').classList.remove('hidden');
+    $('formCard').classList.add('hidden'); if($('payCard')) $('payCard').classList.add('hidden'); $('doneCard').classList.remove('hidden');
+    $('doneCard').scrollIntoView({behavior:'smooth'});
+    if(recovered){ var dn=$('doneCard'); var note=document.createElement('p'); note.className='muted'; note.textContent='Your payment and application were already recorded - this is your existing ticket.'; dn.appendChild(note); }
+  }
+  function paidUncertain(){
+    /* Payment succeeded at checkout but we cannot confirm the application. NEVER reopen checkout
+       or ask for another payment: keep the same credentials and allow a same-credential retry. */
+    var perr=$('payErr');
+    if($('payCard')){ $('formCard').classList.add('hidden'); $('payCard').classList.remove('hidden'); $('payCard').scrollIntoView({behavior:'smooth'}); }
+    var pb=$('payBtn'); if(pb){ pb.disabled=false; }
+    $('payTxt').textContent='Retry submission (payment already done)';
+    if(perr) perr.textContent='We could not confirm your application after payment. If your account was debited, do not pay again. Use the query form on our FAQ page with the same application email so we can check the payment and submission status.';
+  }
   function submitApp(payload){
     var btn=$('submitBtn'); btn.disabled=true; $('submitTxt').textContent='Submitting...';
     return fetch(apiUrl(),{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
      .then(function(r){ return r.json(); })
      .then(function(j){
        btn.disabled=false; $('submitTxt').textContent=ST;
-       if(!j.ok){ var m={bad_email:'The email address looks invalid.',too_big:'The file is too large.',no_deck:'A deck is required.',payment_not_verified:'The payment could not be verified. If money was taken, it is auto-refunded by Razorpay - please try again or write to us.',fee_required:'The Rs 499 review fee is required for open applications.',bad_utr:'Enter the 12-digit UTR from your UPI app after paying.',bad_invite:'This invitation code is no longer valid.',invite_used_up:'This code has no nominations left.'}[j.error]||'Something went wrong on our side. Please try again.';
+       if(!j.ok){
+         if(payload.feeMethod==='razorpay'&&payload.feeRef){
+           if(j.error==='payment_already_used'){ AdyaPay.clearCreds();
+             if($('payCard')){ $('formCard').classList.add('hidden'); $('payCard').classList.remove('hidden'); }
+             var pbu=$('payBtn'); if(pbu) pbu.disabled=true;
+             $('payTxt').textContent='Payment already recorded';
+             var peru=$('payErr'); if(peru) peru.textContent='This payment is already linked to an application. Your application details were emailed to you when it was recorded. If you cannot find them, use the query form on our FAQ page with the same application email - do not pay again.';
+             return; }
+           return paidUncertain();
+         }
+         var m={bad_email:'The email address looks invalid.',too_big:'The file is too large.',no_deck:'A deck is required.',payment_not_verified:'We could not confirm your application after payment. If your account was debited, do not pay again. Use the query form on our FAQ page with the same application email so we can check the payment and submission status.',fee_required:'The Rs 499 review fee is required for open applications.',bad_utr:'Enter the 12-digit UTR from your UPI app after paying.',bad_invite:'This invitation code is no longer valid.',invite_used_up:'This code has no nominations left.'}[j.error]||'Something went wrong on our side. Please try again.';
          if($('payCard')&&!$('payCard').classList.contains('hidden')){ $('payCard').classList.add('hidden'); $('formCard').classList.remove('hidden'); var pb2=$('payBtn'); if(pb2){ pb2.disabled=false; $('payTxt').textContent=rzpMode()?'Pay Rs 499 & submit':'Submit application'; } }
          return fail(m); }
-       LS.set('adya_ticket',{email:payload.email,ticket:j.ticket,code:j.code});
-       $('ticketNo').textContent=j.ticket; $('myCode').textContent=j.code; $('invLeft').textContent=j.invites;
-       $('sEmail').value=payload.email; $('sTicket').value=j.ticket; setShare(j.code);
-       if(payload.feeMethod==='razorpay'&&$('feePaidRzp')) $('feePaidRzp').classList.remove('hidden');
-       $('formCard').classList.add('hidden'); if($('payCard')) $('payCard').classList.add('hidden'); $('doneCard').classList.remove('hidden');
-       $('doneCard').scrollIntoView({behavior:'smooth'});
+       AdyaPay.clearCreds();
+       showDone(payload,j.ticket,j.code,false,j.invites);
      })
-     .catch(function(){ btn.disabled=false; $('submitTxt').textContent=ST; fail('Connection problem. Please try again.'); });
+     .catch(function(){ btn.disabled=false; $('submitTxt').textContent=ST;
+       if(payload.feeMethod==='razorpay'&&payload.feeRef) return paidUncertain();
+       fail('Connection problem. Please try again.'); });
   }
   $('pitch').addEventListener('submit',function(e){
     e.preventDefault(); err.textContent='';
@@ -113,16 +139,27 @@
   function rzpMode(){ return window.AdyaPay&&AdyaPay.enabled()&&(window.PAY_CONFIG||{}).provider==='razorpay'; }
   function setupPayCard(){
     var rzp=rzpMode();
-    $('payTxt').textContent=rzp?'Pay Rs 499 & submit':'Submit application';
+    var saved=rzp&&pendingPayload?AdyaPay.loadCreds(pendingPayload.email):null;
+    $('payTxt').textContent=saved?'Submit application (payment already done)':(rzp?'Pay Rs 499 & submit':'Submit application');
   }
   $('payBtn').addEventListener('click',function(){
     var perr=$('payErr'); perr.textContent='';
     if(!pendingPayload){ perr.textContent='Your form details were lost. Please go back and submit again.'; return; }
     var pb=$('payBtn');
     if(rzpMode()){
+      var saved=AdyaPay.loadCreds(pendingPayload.email);
+      if(saved){
+        pb.disabled=true; $('payTxt').textContent='Submitting...';
+        pendingPayload.feeInr=499; pendingPayload.feeMethod='razorpay';
+        pendingPayload.feeRef=saved.paymentId; pendingPayload.feeOrderId=saved.orderId; pendingPayload.feeSignature=saved.signature;
+        pendingPayload.feeStatus='paid_unverified';
+        submitApp(pendingPayload);
+        return;
+      }
       pb.disabled=true; $('payTxt').textContent='Opening secure payment...';
       AdyaPay.charge({ name:pendingPayload.name, email:pendingPayload.email,
         onSuccess:function(r){
+          AdyaPay.saveCreds(pendingPayload.email,r);
           pendingPayload.feeInr=499; pendingPayload.feeMethod='razorpay';
           pendingPayload.feeRef=r.paymentId; pendingPayload.feeOrderId=r.orderId; pendingPayload.feeSignature=r.signature;
           pendingPayload.feeStatus='paid_unverified';
