@@ -55,3 +55,11 @@
 - Footers: all five pages now carry the same footer; the stale FAQ footer line "No money is collected from applicants" was replaced with the accurate Rs 499 open-application wording (matching the homepage footer).
 - Removed stale skyline.jpg preloads (CSS uses skyline.webp); sub-pages now preload the webp hero.
 - Verified live on prod: all 5 pages serve the new markup (skip link, JSON-LD, OG, footers); payment flow click-tested on the preview twin before deploy.
+
+## 23 Oct 2026 - Razorpay LIVE: Rs 499 open-lane fee now charges real money
+
+- Razorpay account fully activated today (KYC application verified 12:57 PM, Video KYC done 2:19 PM, "Fully Activated" email 2:36 PM IST).
+- config.js PAY_CONFIG.keyId switched from rzp_test_* to the live publishable key id (this commit).
+- Backend (Apps Script "Adya Capital - Backend") Script Properties RZP_KEY_ID / RZP_KEY_SECRET switched to live keys via vault-secured fill (secret never in chat/git/docs).
+- Verified end-to-end without a real charge: apply flow -> fee step -> Razorpay checkout modal opens in LIVE mode (Rs 499, UPI/Cards/Netbanking/Wallet, live UPI QR) -> clean dismiss, no payment, no submission row written.
+- Dynamic per-applicant QR backend path (built in v11+) is now functional since the QR API works in live mode.
