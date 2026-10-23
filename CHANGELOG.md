@@ -1,5 +1,16 @@
 # Changelog
 
+## October 23, 2026
+
+### Razorpay LIVE mode, payment hardening, paid-state recovery
+
+- Razorpay account fully activated (KYC + Video KYC, 2:36 PM IST). Live key id wired into `config.js`; the live key pair sits in the backend Script Properties. The open lane now charges Rs 499 real money; the invite-code lane stays free.
+- Payment verification hardened (backend Version 14): amount and currency must match the expected Rs 499 INR, the payment must match the server-created order id, the order must belong to this site (order notes: site, lane, email), an authorized-but-not-captured payment is captured server-side before acceptance, and only a captured payment produces a ticket.
+- `createfeeorder` refuses a second order when the email already has a paid submission (`already_submitted`, no new ticket); a reused payment id returns `payment_already_used` without a ticket.
+- Paid-state recovery: if payment succeeded but the submit died after it (network or device), re-submitting the form with the same email and code reuses the stored payment within 6 hours instead of charging again. The FAQ query form asks for the Razorpay payment id and tells founders not to pay again; the recovery page warns to use the same device and browser.
+- Sheet Help tab troubleshooting updated to match: never tell a founder to pay twice.
+
+
 ## October 22, 2026 (night)
 
 ### Test keys rotated; fee gate back ON (Razorpay checkout)

@@ -9,6 +9,8 @@ The site is static. Everything dynamic runs through one Google Apps Script web a
 | Area | Behaviour |
 | --- | --- |
 | Invite codes | Validates codes server-side (`?action=checkref`). Founder codes are unlimited; member codes spend nominations. Retired codes are blocklisted in Settings. |
+| Fee payment | The open (no-invite) lane pays Rs 499 via Razorpay before the application is accepted. The backend creates the order, verifies the signature, amount, currency and order ownership (order notes bind it to this site), captures an authorized payment server-side, and only a captured payment produces a ticket. Invite-code lane stays free. |
+| Paid-state recovery | If payment succeeded but the submit died after it, re-submitting the same email and code reuses the stored payment within 6 hours instead of charging again. |
 | Applications | `POST` from the form. Re-validates email and code, writes a Submissions row, decrements nominations, returns a ticket (ADYA-XXXXXX) and a personal referral code. Applying without a code works as a slower direct lane. |
 | Acknowledgement | Sends an instant acknowledgement email on every application. |
 | Deck scoring | Applications join a scoring queue; each deck is scored on a 100-point rubric (10 dimensions) with server-computed total and band, saved in a Scoring tab. |
