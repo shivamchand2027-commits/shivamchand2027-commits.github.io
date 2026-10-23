@@ -84,7 +84,7 @@
     if($('payCard')){ $('formCard').classList.add('hidden'); $('payCard').classList.remove('hidden'); $('payCard').scrollIntoView({behavior:'smooth'}); }
     var pb=$('payBtn'); if(pb){ pb.disabled=false; }
     $('payTxt').textContent='Retry submission (payment already done)';
-    if(perr) perr.textContent='We could not confirm your application after payment. If your account was debited, do not pay again. Use the query form on our FAQ page with the same application email so we can check the payment and submission status.';
+    if(perr) perr.textContent='We could not confirm your application after payment. If your account was debited, do not pay again. Use the query form on our FAQ page with the same application email so we can check the payment and submission status. If a refund is due, it typically reaches your original payment method within 5-7 working days after the refund is initiated.';
   }
   function submitApp(payload){
     var btn=$('submitBtn'); btn.disabled=true; $('submitTxt').textContent='Submitting...';
@@ -102,7 +102,7 @@
              return; }
            return paidUncertain();
          }
-         var m={bad_email:'The email address looks invalid.',too_big:'The file is too large.',no_deck:'A deck is required.',payment_not_verified:'We could not confirm your application after payment. If your account was debited, do not pay again. Use the query form on our FAQ page with the same application email so we can check the payment and submission status.',fee_required:'The Rs 499 review fee is required for open applications.',bad_utr:'Enter the 12-digit UTR from your UPI app after paying.',bad_invite:'This invitation code is no longer valid.',invite_used_up:'This code has no nominations left.'}[j.error]||'Something went wrong on our side. Please try again.';
+         var m={bad_email:'The email address looks invalid.',too_big:'The file is too large.',no_deck:'A deck is required.',payment_not_verified:'We could not confirm your application after payment. If your account was debited, do not pay again. Use the query form on our FAQ page with the same application email so we can check the payment and submission status. If a refund is due, it typically reaches your original payment method within 5-7 working days after the refund is initiated.',fee_required:'The Rs 499 review fee is required for open applications.',bad_utr:'Enter the 12-digit UTR from your UPI app after paying.',bad_invite:'This invitation code is no longer valid.',invite_used_up:'This code has no nominations left.'}[j.error]||'Something went wrong on our side. Please try again.';
          if($('payCard')&&!$('payCard').classList.contains('hidden')){ $('payCard').classList.add('hidden'); $('formCard').classList.remove('hidden'); var pb2=$('payBtn'); if(pb2){ pb2.disabled=false; $('payTxt').textContent=rzpMode()?'Pay Rs 499 & submit':'Submit application'; } }
          return fail(m); }
        AdyaPay.clearCreds();
@@ -167,7 +167,7 @@
           submitApp(pendingPayload);
         },
         onDismiss:function(){ pb.disabled=false; $('payTxt').textContent='Pay Rs 499 & submit'; perr.textContent='Payment was not completed. The application submits only after the Rs 499 payment goes through.'; },
-        onError:function(m){ pb.disabled=false; $('payTxt').textContent='Pay Rs 499 & submit'; perr.textContent=m||'Payment failed. No money was taken - please try again.'; }
+        onError:function(m){ pb.disabled=false; $('payTxt').textContent='Pay Rs 499 & submit'; perr.textContent=m||'We could not confirm your application after payment. If your account was debited, do not pay again. Use the query form on our FAQ page with the same application email so we can check the payment and submission status. If a refund is due, it typically reaches your original payment method within 5-7 working days after the refund is initiated.'; }
       });
       return;
     }

@@ -1,5 +1,12 @@
 # Changelog
 
+## October 24, 2026
+
+### Refund/failure copy: source-backed two-state wording (owner-approved exact words, 24 Oct 03:02 IST)
+- payment.failed: "Payment failed. If your account was debited for this failed payment, the amount should be automatically reversed by your bank within 7 working days." (Razorpay payments FAQ: failed-payment debits are auto-refunded by the issuing bank in T+7 working days.)
+- Uncertain-after-payment states (payment_not_verified, post-submit connection failure, onError fallbacks): "We could not confirm your application after payment. If your account was debited, do not pay again. Use the query form on our FAQ page with the same application email so we can check the payment and submission status. If a refund is due, it typically reaches your original payment method within 5-7 working days after the refund is initiated." (Razorpay refunds doc: merchant-initiated, lands in 5-7 working days, source refunds only.)
+- Removed the dead "Payment failed. No money was taken - please try again." fallback (asserted no debit) and the pre-hardening "auto-refunded by Razorpay" line (wrong for captured-but-rejected). No refund-timing guarantees; automatic (failed, bank-side) vs manual (captured, merchant-initiated) distinction preserved.
+
 ## October 23, 2026
 
 ### Razorpay LIVE mode, payment hardening, paid-state recovery
