@@ -221,7 +221,7 @@
       var tick='<div class="mini">Ticket: <b>'+esc(t)+'</b> <button type="button" class="copybtn" data-copy="'+esc(t)+'">Copy</button></div>';
       var fb=j.founding?'<div style="margin-bottom:8px"><span style="display:inline-block;border:1px solid rgba(212,175,55,.65);color:#d4af37;padding:2px 10px;border-radius:999px;font-size:11px;letter-spacing:.14em;text-transform:uppercase">Founding Member</span></div>':'';
       var laneNote=(j.lane==='open'&&j.status==='pending')?'<div class="mini" style="margin-top:8px;opacity:.85">Open application. Nominated founders are reviewed first - a member\'s code moves you to the fast lane.</div>':'';
-      if(j.status==='approved') show('approved',fb+'<b>Application approved. Welcome to Adya Capital.</b><br>'+esc(j.message)+'<br>Direct line to the Managing Partner:<span class="phone">'+esc(j.phone)+'</span>'+tick+refLine(j));
+      if(j.status==='approved') show('approved',fb+'<b>Application approved. Welcome to Adya Capital.</b><br>'+esc(j.message)+'<br>Your details and startup information are now with the Partners of Adya Capital. Partner details and meeting timing and place are shared next.'+tick+refLine(j));
       else if(j.status==='rejected') show('rejected',fb+'<b>Not selected.</b><br>The Investment Committee has declined this application. Most are. You may reapply once the company shows materially stronger traction.'+tick+refLine(j));
       else if(j.status==='pending') show('pending',fb+'<b>Your application is under review by the Investment Committee.</b><br>Most applications are declined. Check back later.'+tick+refLine(j)+laneNote+waitBlock());
       else show('rejected','No application was found for this email and ticket. Please check both and try again.'+tick);
