@@ -89,3 +89,6 @@
 - index.html: status card removed from the main flow; legacy https://adyacapital.me/#status links (used by the live ack and feedback email templates) redirect instantly to status.html via a head script - no backend change; the gate "Check application status" button now links to status.html; confirmation-screen copy points to the nav link.
 - app.js: status logic moved to status.js verbatim (same endpoints and rendering, incl. deck score card, founding badge, wait block, nomination code line); submit, Rs 499 Razorpay, nominations and gate behavior untouched.
 - sitemap.xml: status.html added.
+
+## 2026-10-25 - Direct line on approved status card
+- status.js: approved-status card now renders the contact phone (Settings-backed "phone" field) as a "Direct line" line, per user decision of Oct 25 ~14:12. Shown only for approved applications; pending/rejected/status-not-found views unchanged. No backend, email, or Settings changes.
