@@ -30,6 +30,6 @@
   btn.addEventListener('click',function(e){ e.stopPropagation(); want=!want; try{ localStorage.setItem(KEY,want?'on':'off'); }catch(x){} if(want) start(); else stop(); ui(); });
   document.addEventListener('visibilitychange',function(){ if(!ctx||!want) return; if(document.hidden){ fadeTo(0,.4); setTimeout(function(){ if(document.hidden) ctx.suspend(); },500); } else { start(); } });
   ['pointerdown','keydown','touchend'].forEach(function(e){ document.addEventListener(e,gesture,true); });
-  ui(); load();
+  ui(); if('requestIdleCallback' in window){ requestIdleCallback(function(){ load(); },{timeout:4000}); } else { window.addEventListener('load',function(){ setTimeout(load,1500); }); }
   if(want){ try{ build(); ctx.resume().then(function(){ if(ctx.state==='running') start(); }).catch(function(){}); }catch(e){} }
 })();

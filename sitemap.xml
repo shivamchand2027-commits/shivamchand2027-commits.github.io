@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://adyacapital.me/</loc><lastmod>2026-10-25</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://adyacapital.me/</loc><lastmod>2026-10-25</lastmod><image:image><image:loc>https://adyacapital.me/og.png</image:loc></image:image><image:image><image:loc>https://adyacapital.me/logo-512.png</image:loc></image:image><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://adyacapital.me/padhai.html</loc><lastmod>2026-10-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://adyacapital.me/vault.html</loc><lastmod>2026-10-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://adyacapital.me/communities.html</loc><lastmod>2026-10-22</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>

@@ -98,3 +98,9 @@
 - og.png replaced: skyline share card built from the site's own hero image + gold mark + white spaced type (was flat maroon, which appears nowhere in the visible site).
 - Homepage search copy in the owner's positioning words: title "Adya Capital | Invite-only VC network and VC school for founders"; description "...learn to pitch, network and build your business. Apply with your deck." OG/Twitter/JSON-LD aligned.
 - index.html now has a single H1 (member hero demoted to H2; .title selector, visuals unchanged).
+
+## 2026-10-25 (later) - Technical SEO batch 2 (owner-approved 25 Oct ~14:46, reaffirmed 14:48 "baki changes push kardo")
+- Square og:image candidate (logo-512.png, 512x512) added after the wide card on all 6 pages: Google/social get a crop-safe brand image option.
+- Image-sitemap extension on the homepage entry (og.png + logo-512.png) for Googlebot-Image discovery.
+- music.js: the 850KB music prefetch now runs at idle time instead of init. Same first-tap behavior; real-world speed benefit unproven in A/B, kept as hygiene. NOTE: Lighthouse LCP showed high run-to-run variance on the live site (status.html 7.5s then 2.7s; home 2.7s then 6.7s), so no page-specific LCP defect is confirmed.
+- No visible copy changes: homepage kicker/sub wording held pending owner decision.
