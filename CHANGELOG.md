@@ -92,3 +92,9 @@
 
 ## 2026-10-25 - Direct line on approved status card
 - status.js: approved-status card now renders the contact phone (Settings-backed "phone" field) as a "Direct line" line, per user decision of Oct 25 ~14:12. Shown only for approved applications; pending/rejected/status-not-found views unchanged. No backend, email, or Settings changes.
+
+## 2026-10-25 - Search presentation pack (owner-approved, "yes this one" 25 Oct ~14:36)
+- Favicon rebuilt from real site pixels: gold Sri Yantra mark on dusk-navy (24,34,52) sampled from the hero skyline; favicon.ico (16/32/48) added at root (previously 404), favicon.png + favicon-192.png regenerated, icon links updated on all 6 pages, logo-512.png added for Organization JSON-LD logo.
+- og.png replaced: skyline share card built from the site's own hero image + gold mark + white spaced type (was flat maroon, which appears nowhere in the visible site).
+- Homepage search copy in the owner's positioning words: title "Adya Capital | Invite-only VC network and VC school for founders"; description "...learn to pitch, network and build your business. Apply with your deck." OG/Twitter/JSON-LD aligned.
+- index.html now has a single H1 (member hero demoted to H2; .title selector, visuals unchanged).
