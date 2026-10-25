@@ -81,3 +81,11 @@
 - Backend (Apps Script "Adya Capital - Backend") Script Properties RZP_KEY_ID / RZP_KEY_SECRET switched to live keys via vault-secured fill (secret never in chat/git/docs).
 - Verified end-to-end without a real charge: apply flow -> fee step -> Razorpay checkout modal opens in LIVE mode (Rs 499, UPI/Cards/Netbanking/Wallet, live UPI QR) -> clean dismiss, no payment, no submission row written.
 - Dynamic per-applicant QR backend path (built in v11+) is now functional since the QR API works in live mode.
+
+## 25 Oct 2026 - Application Status moves to its own page (status.html)
+
+- Owner instruction (WhatsApp 25 Oct ~1:50 PM; corrected preview approved 2:03 PM): the status form sitting directly under the submit form confused new applicants.
+- NEW status.html + status.js: status/score lookup on a dedicated subpage with a compact hero; nav "Application Status" on all six pages now points there; no invitation code needed (same as the old in-page bypass).
+- index.html: status card removed from the main flow; legacy https://adyacapital.me/#status links (used by the live ack and feedback email templates) redirect instantly to status.html via a head script - no backend change; the gate "Check application status" button now links to status.html; confirmation-screen copy points to the nav link.
+- app.js: status logic moved to status.js verbatim (same endpoints and rendering, incl. deck score card, founding badge, wait block, nomination code line); submit, Rs 499 Razorpay, nominations and gate behavior untouched.
+- sitemap.xml: status.html added.

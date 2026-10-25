@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://script.google.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="mark-t.png">
-<link rel="preload" as="image" href="skyline.webp" fetchpriority="high"><link rel="stylesheet" href="theme.css">    <!-- Microsoft Clarity -->
+<link rel="preload" as="image" href="skyline.webp" fetchpriority="high"><script>if(location.hash==='#status')location.replace('status.html');</script>
+<link rel="stylesheet" href="theme.css">    <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             try{var q=location.search.match(/[?&]internal=([01])/);if(q){if(q[1]==='1')localStorage.setItem('adya_internal','1');else localStorage.removeItem('adya_internal');}if(localStorage.getItem('adya_internal')==='1')return;}catch(e){}
@@ -23,7 +24,7 @@
     </script>
 </head><body><a class="skip" href="#main">Skip to main content</a>
 <div class="bg" aria-hidden="true"></div>
-<div id="gate"><section class="vhero full"><div class="frame"><nav class="nav"><a class="logo" href="index.html" aria-label="Adya Capital"><img class="lmark" src="mark-t.png" alt="" width="34" height="34"><span>Adya<br>Capital</span></a><div class="links"><a href="index.html" class="here">Overview</a><a href="vault.html">Fund Vault</a><a href="padhai.html">Founder Academy</a><a href="communities.html">Communities</a><a href="faq.html">FAQ</a><a href="index.html#status">Application Status</a></div><a class="btn sm cta" href="#invite">Request access<span class="i">+</span></a></nav>
+<div id="gate"><section class="vhero full"><div class="frame"><nav class="nav"><a class="logo" href="index.html" aria-label="Adya Capital"><img class="lmark" src="mark-t.png" alt="" width="34" height="34"><span>Adya<br>Capital</span></a><div class="links"><a href="index.html" class="here">Overview</a><a href="vault.html">Fund Vault</a><a href="padhai.html">Founder Academy</a><a href="communities.html">Communities</a><a href="faq.html">FAQ</a><a href="status.html">Application Status</a></div><a class="btn sm cta" href="#invite">Request access<span class="i">+</span></a></nav>
 <div class="hero-body"><div><div class="glogo" id="glogo"><img src="mark-t.png" alt="" width="120" height="120"><div class="gtxt"><b>ADYA</b><i></i><em>CAPITAL</em></div></div><div class="pills"><span class="pill">By invitation only</span><span class="pill">Most applicants are declined</span><span class="pill">Est. 2026</span></div>
 <p class="kicker">Invitation-only venture network for founders</p>
 <h1 class="title">Not Everyone Gets In.<br>That Is the Point.</h1></div>
@@ -32,10 +33,10 @@
 <button class="btn lg" type="submit" id="gateBtn"><span id="gateTxt">Request entry</span><span class="i">&rarr;</span></button></form>
 <p class="gmsg" id="gateMsg" role="status"></p>
 <p class="gmsg" style="opacity:.85">No invitation? <a href="#" id="openApply" style="color:inherit"><u>Apply anyway</u></a> - the Committee reads every application (a one-time Rs 499 review fee applies). Nominated founders are reviewed first.</p></div>
-<div class="right"><a class="btn glass lg" href="#" id="toStatus"><span>Check application status</span><span class="i">&#9638;</span></a></div></div></div>
+<div class="right"><a class="btn glass lg" href="status.html"><span>Check application status</span><span class="i">&#9638;</span></a></div></div></div>
 </div><div class="corner tl">Access is earned,<br>never granted</div><div class="corner tr">By invitation<br>only</div><div class="corner bl">Adya Capital</div></section></div>
 
-<header class="vhero full" id="top"><div class="frame"><nav class="nav"><a class="logo" href="index.html" aria-label="Adya Capital"><img class="lmark" src="mark-t.png" alt="" width="34" height="34"><span>Adya<br>Capital</span></a><div class="links"><a href="index.html" class="here">Overview</a><a href="vault.html">Fund Vault</a><a href="padhai.html">Founder Academy</a><a href="communities.html">Communities</a><a href="faq.html">FAQ</a><a href="index.html#status">Application Status</a></div><a class="btn sm cta" href="#formCard">Submit deck<span class="i">+</span></a></nav>
+<header class="vhero full" id="top"><div class="frame"><nav class="nav"><a class="logo" href="index.html" aria-label="Adya Capital"><img class="lmark" src="mark-t.png" alt="" width="34" height="34"><span>Adya<br>Capital</span></a><div class="links"><a href="index.html" class="here">Overview</a><a href="vault.html">Fund Vault</a><a href="padhai.html">Founder Academy</a><a href="communities.html">Communities</a><a href="faq.html">FAQ</a><a href="status.html">Application Status</a></div><a class="btn sm cta" href="#formCard">Submit deck<span class="i">+</span></a></nav>
 <div class="hero-body"><div><div class="pills"><span class="pill" id="vipBadge">Member access</span><span class="pill">Investment Committee review</span><span class="pill">Not open to the public</span></div>
 <h1 class="title">You Are In the Room.<br>Now Earn Your Place.</h1></div>
 <div class="hero-low"><div><p class="sub">Entry only opens the door. The Investment Committee reads every application and most are declined. Submit your deck, and prepare with the Fund Vault and the Founder Academy that the public never sees.</p>
@@ -138,7 +139,7 @@
     <h2>Application received</h2>
     <p class="lead">Your application is with the Investment Committee. Most do not pass, and we will not chase you for more.</p>
     <div class="ticket"><span>Ticket</span> <b id="ticketNo">ADYA-XXXXXX</b> <button class="copybtn" id="copyTicket" type="button">Copy</button></div>
-    <p class="tiny">Save this ticket. You need your email and ticket to check your status.</p>
+    <p class="tiny">Save this ticket. You can check your status anytime with your email and ticket - tap "Application Status" at the top of this page.</p>
     <p class="tiny hidden" id="feePaidRzp">Fee: Rs 499 paid via Razorpay - receipt emailed by Razorpay. Your application is in the review queue.</p>
     <div class="refbox">
       <h3>You may nominate <span id="invLeft">5</span> founders. Choose carefully.</h3>
@@ -155,17 +156,6 @@
     </div>
   </section>
 
-  <section class="card" id="statusCard">
-    <h2>Application status</h2>
-    <p class="lead">Enter the email and ticket from your application. An invitation only gets you to the door; the Committee decides.</p>
-    <form id="statusForm" novalidate>
-      <label>Email<input type="email" id="sEmail" required placeholder="The email used on your application"></label>
-      <label>Ticket<input type="text" id="sTicket" required placeholder="ADYA-XXXXXX" autocapitalize="characters"></label>
-      <button class="btn" type="submit" style="margin-top:18px">Check status<span class="i">&rarr;</span></button>
-    </form>
-    <div id="statusOut" class="status hidden" role="status"></div>
-    <button class="btn ghost sm" id="statusBack" type="button" style="margin-top:16px">Back to start</button>
-  </section>
 
   <section class="card faq">
     <h2>Frequently asked questions</h2>
