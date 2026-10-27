@@ -1,5 +1,16 @@
 # Changelog
 
+## October 27, 2026
+
+### Backend v15: 14-16h deck-feedback pipeline + global sticky sender hold (owner-approved 27 Oct 22:22 IST)
+
+- **Feedback SLA pipeline**: every application is now tracked against the owner's 14-16h detailed-feedback commitment, clocked from final submit (Submissions column A) for both the paid and referral lanes; the clock never restarts, even if a deck link arrives late. Per application the 5-minute tick classifies SENT (Email log feedback row) / MISSING_DECK / NEEDS_SCORE / READY (scored, unsent), composes the owner-approved detailed-feedback email, sends it, and records the result. The owner's rubric (10 dimensions, 100 points) and the approved feedback format are unchanged.
+- **Global sticky sender hold**: every GmailApp path in the backend (application ack, decision emails, deck feedback, query auto-reply, owner SLA alerts) checks one hold first. The hold is sticky: it never releases on elapsed time, only through explicit controlled clearance (`clearFeedbackSenderHold()` in the editor). A fresh deploy starts held by construction (hold-first bootstrap), so no code change can send before clearance. A provider quota/rate error trips the hold for the whole queue, not just the failed ticket; quota errors are never hammered with 5-minute retries (15-minute per-ticket backoff for plain transient errors; permanent and ambiguous states stop and are never auto-retried).
+- **Crash-safe send accounting**: send intent (SENDING) is persisted before the provider call; a crash between provider acceptance and logging recovers as SEND_AMBIGUOUS for manual reconciliation - never an automatic resend. Nothing held is ever logged as sent. Acknowledgement emails suppressed by the hold get an auditable HELD marker and are delivered automatically after clearance; old ERROR rows are never re-emailed.
+- **Owner SLA alerts**: at 14h (warning) and 16h (urgent) from final submit the owner gets one alert per application carrying the reason ([NEEDS_SCORE], [MISSING_DECK], [ERROR xN], [SEND_AMBIGUOUS]). Alerts are suppressed while the sender hold is active and resume after clearance without losing any application.
+- **Execution health**: every tick stamps a heartbeat (Script Property with UTC time + scan counts). A dead trigger, revoked authorisation or service failure freezes the stamp, so monitoring detects backend silence instead of assuming it.
+- Rollback: Deploy > Manage deployments > Version 14.
+
 ## October 24, 2026
 
 ### Refund/failure copy: source-backed two-state wording (owner-approved exact words, 24 Oct 03:02 IST)
