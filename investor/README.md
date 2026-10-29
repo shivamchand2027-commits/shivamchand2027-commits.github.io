@@ -70,3 +70,13 @@ This is a separate static React review adaptation, not the live Adya site and no
 - Hosted investor walkthrough reveals999only after explicit wider-directory selection, separately from free browsing/interest. Terms and renewal remain pending; checkout disabled.
 - Canonical private review link unchanged. Static walkthrough only; no production deployment or payment activation.
 - Hosted1280/390/320and local1440/390/320checks passed; unit12pass, realPG opt-in skipped this run.
+
+### Focused contact-first design review,30October2026
+Latest hosted review is `review-preview/src/App.tsx`, with `tests/hosted-focus.mjs` and `tests/hosted-invited.mjs` using a fresh `PREVIEW_URL` environment value, never committed credentials. It supersedes the earlier hosted-landing test for current hosted layout; that historical test describes the prior revision.
+- Both roles: temporary sample contact step, optional marketing off, single Continue.
+- Founder: optional code and one Continue, fee once before effort, stages replace each other, previous-stage Back preserves inputs.
+- Investor: browse, interest, confirmation as focused views; directory disclosed only on choice.
+- Returning auth is a nonfunctional disclosure, not implemented sign-in. No data saving/payment.
+- Original theme retained.1280/390/320 technical/visual review passed, not a claim of user research/perfection.
+- This redesign is isolated to the hosted review adaptation. Local backend/forms still need design integration after owner review; root/live founder site remains untouched.
+- UX grounding: https://design-system.service.gov.uk/patterns/question-pages/ and https://www.nngroup.com/articles/progressive-disclosure/
