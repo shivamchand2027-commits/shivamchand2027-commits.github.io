@@ -14,23 +14,34 @@ export class PostgresStore {
     this.ready = this.init();
   }
   async init() {
-    await this.pool.query("CREATE SCHEMA IF NOT EXISTS adya_portal");
-    await this.pool.query("REVOKE ALL ON SCHEMA adya_portal FROM PUBLIC");
-    await this.pool.query(
-      `CREATE TABLE IF NOT EXISTS adya_portal.records (tab text NOT NULL,id text NOT NULL,data jsonb NOT NULL,updated_at timestamptz NOT NULL DEFAULT now(),PRIMARY KEY(tab,id))`,
-    );
-    await this.pool.query(
-      `CREATE UNIQUE INDEX IF NOT EXISTS adya_access_payment_unique ON adya_portal.records ((data->>'paymentId')) WHERE tab='Access' AND data->>'paymentId'<>''`,
-    );
-    await this.pool.query(
-      `CREATE UNIQUE INDEX IF NOT EXISTS adya_order_provider_unique ON adya_portal.records ((data->>'providerOrderId')) WHERE tab='Orders' AND data->>'providerOrderId'<>''`,
-    );
-    await this.pool.query(
-      `CREATE UNIQUE INDEX IF NOT EXISTS adya_event_provider_unique ON adya_portal.records ((data->>'providerRef')) WHERE tab='Events' AND data->>'providerRef'<>''`,
-    );
-    await this.pool.query(
-      `CREATE UNIQUE INDEX IF NOT EXISTS adya_interest_request_unique ON adya_portal.records ((data->>'userId'),(data->>'requestId')) WHERE tab='Interests'`,
-    );
+    const c = await this.pool.connect();
+    try {
+      await c.query("BEGIN");
+      await c.query("SELECT pg_advisory_xact_lock($1)", [427512354]);
+      await c.query("CREATE SCHEMA IF NOT EXISTS adya_portal");
+      await c.query("REVOKE ALL ON SCHEMA adya_portal FROM PUBLIC");
+      await c.query(
+        `CREATE TABLE IF NOT EXISTS adya_portal.records (tab text NOT NULL,id text NOT NULL,data jsonb NOT NULL,updated_at timestamptz NOT NULL DEFAULT now(),PRIMARY KEY(tab,id))`,
+      );
+      await c.query(
+        `CREATE UNIQUE INDEX IF NOT EXISTS adya_access_payment_unique ON adya_portal.records ((data->>'paymentId')) WHERE tab='Access' AND data->>'paymentId'<>''`,
+      );
+      await c.query(
+        `CREATE UNIQUE INDEX IF NOT EXISTS adya_order_provider_unique ON adya_portal.records ((data->>'providerOrderId')) WHERE tab='Orders' AND data->>'providerOrderId'<>''`,
+      );
+      await c.query(
+        `CREATE UNIQUE INDEX IF NOT EXISTS adya_event_provider_unique ON adya_portal.records ((data->>'providerRef')) WHERE tab='Events' AND data->>'providerRef'<>''`,
+      );
+      await c.query(
+        `CREATE UNIQUE INDEX IF NOT EXISTS adya_interest_request_unique ON adya_portal.records ((data->>'userId'),(data->>'requestId')) WHERE tab='Interests'`,
+      );
+      await c.query("COMMIT");
+    } catch (e) {
+      await c.query("ROLLBACK");
+      throw e;
+    } finally {
+      c.release();
+    }
   }
   check(tab) {
     if (!Object.hasOwn(COLUMNS, tab)) throw Error("Unknown table");

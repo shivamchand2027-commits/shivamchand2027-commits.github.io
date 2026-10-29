@@ -13,11 +13,16 @@ test("transactional store persists records, replaces by ID and rejects table inj
   const adapter = db.adapters.createPg(),
     s = Object.create(PostgresStore.prototype);
   s.pool = new adapter.Pool();
-  const query = s.pool.query.bind(s.pool);
-  s.pool.query = (sql, ...args) =>
-    sql.startsWith("REVOKE ")
-      ? Promise.resolve({ rows: [] })
-      : query(sql, ...args);
+  const connect = s.pool.connect.bind(s.pool);
+  s.pool.connect = async () => {
+    const c = await connect();
+    const query = c.query.bind(c);
+    c.query = (sql, ...args) =>
+      sql.startsWith("REVOKE ")
+        ? Promise.resolve({ rows: [] })
+        : query(sql, ...args);
+    return c;
+  };
   s.ctx = new (await import("node:async_hooks")).AsyncLocalStorage();
   s.ready = s.init();
   await s.ready;
