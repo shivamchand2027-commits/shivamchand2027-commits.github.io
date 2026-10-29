@@ -1,2 +1,64 @@
-import {chromium}from '@playwright/test';import {spawn}from 'node:child_process';
-const server=spawn(process.execPath,['server/index.mjs'],{env:{...process.env,PORTAL_PREVIEW:'true'},stdio:'ignore'});try{await new Promise(r=>setTimeout(r,1200));const browser=await chromium.launch({headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('http://127.0.0.1:8099/');await page.getByRole('button',{name:'Explore the preview'}).click();await page.screenshot({path:'/downloads/adya-investor-desktop.png',fullPage:true});await page.getByRole('button',{name:'Show interest'}).first().click();await page.screenshot({path:'/downloads/adya-investor-interest.png'});await page.locator('#closeDialog').click();await page.setViewportSize({width:390,height:844});await page.screenshot({path:'/downloads/adya-investor-mobile.png',fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Mobile horizontal overflow');await page.locator('#industry').selectOption('SaaS');if(await page.locator('.card').count()!==1)throw Error('Filter failed');await page.getByRole('button',{name:'Show interest'}).click();for(const [name,value]of Object.entries({name:'Preview Investor',email:'preview@example.org',phone:'+919876543210',firm:'Sample office',country:'India',amount:'100000'}))await page.locator(`[name=${name}]`).fill(value);await page.locator('[name=role]').selectOption('HNI');await page.locator('[name=whatsapp]').check();await page.locator('[name=consent]').check();await page.locator('#interestSubmit').click();if(!await page.locator('#successDialog').isVisible())throw Error('Success popup missing');await page.screenshot({path:'/downloads/adya-investor-popup-mobile.png'});console.log(JSON.stringify({visualFlow:'passed',pageErrors:errors,mobileWidth:390,overflow:false}));await browser.close();}finally{server.kill();await new Promise(r=>server.once('exit',r));}
+import { chromium } from "@playwright/test";
+import { spawn } from "node:child_process";
+const server = spawn(process.execPath, ["server/index.mjs"], {
+  env: { ...process.env, PORTAL_PREVIEW: "true" },
+  stdio: "ignore",
+});
+try {
+  await new Promise((r) => setTimeout(r, 1200));
+  const browser = await chromium.launch({ headless: true });
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 1000 },
+  });
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.goto("http://127.0.0.1:8099/");
+  await page.getByRole("button", { name: "Explore the preview" }).click();
+  await page.screenshot({
+    path: "/downloads/adya-investor-desktop.png",
+    fullPage: true,
+  });
+  await page.getByRole("button", { name: "Show interest" }).first().click();
+  await page.screenshot({ path: "/downloads/adya-investor-interest.png" });
+  await page.locator("#closeDialog").click();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({
+    path: "/downloads/adya-investor-mobile.png",
+    fullPage: true,
+  });
+  if (
+    await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)
+  )
+    throw Error("Mobile horizontal overflow");
+  await page.locator("#industry").selectOption("SaaS");
+  if ((await page.locator(".card").count()) !== 1) throw Error("Filter failed");
+  await page.getByRole("button", { name: "Show interest" }).click();
+  for (const [name, value] of Object.entries({
+    name: "Preview Investor",
+    email: "preview@example.org",
+    phone: "+919876543210",
+    firm: "Sample office",
+    country: "India",
+    amount: "100000",
+  }))
+    await page.locator(`[name=${name}]`).fill(value);
+  await page.locator("[name=role]").selectOption("HNI");
+  await page.locator("[name=whatsapp]").check();
+  await page.locator("[name=consent]").check();
+  await page.locator("#interestSubmit").click();
+  if (!(await page.locator("#successDialog").isVisible()))
+    throw Error("Success popup missing");
+  await page.screenshot({ path: "/downloads/adya-investor-popup-mobile.png" });
+  console.log(
+    JSON.stringify({
+      visualFlow: "passed",
+      pageErrors: errors,
+      mobileWidth: 390,
+      overflow: false,
+    }),
+  );
+  await browser.close();
+} finally {
+  server.kill();
+  await new Promise((r) => server.once("exit", r));
+}

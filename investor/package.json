@@ -1,1 +1,25 @@
-{"name":"adya-investor-portal","private":true,"version":"0.1.0","type":"module","scripts":{"start":"node server/index.mjs","test":"node --test tests/*.test.mjs","ingest":"node scripts/ingest.mjs"},"dependencies":{"express":"^5.1.0","express-rate-limit":"^8.1.0","google-auth-library":"^10.3.0","googleapis":"^160.0.0","helmet":"^8.1.0","cookie-parser":"^1.4.7","cheerio":"^1.1.2"},"devDependencies":{"@playwright/test":"^1.56.0"}}
+{
+  "name": "adya-investor-portal",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "ingest": "node scripts/ingest.mjs"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "google-auth-library": "^10.3.0",
+    "googleapis": "^160.0.0",
+    "helmet": "^8.1.0",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "pg-mem": "^3.0.14"
+  }
+}
