@@ -76,7 +76,7 @@ try {
     assert(await page.locator("#startupGrid").isVisible());
     await page.locator("#industry").selectOption("SaaS");
     assert.equal(await page.locator("#startupGrid .card").count(), 1);
-    assert(await page.locator("#directory").isVisible());
+    assert(await page.locator("#directory").isVisible());assert(!await page.locator("#directoryPrice").isVisible());await page.locator("#directoryDetails").click();assert(await page.locator("#directoryPrice").isVisible());
     assert(
       !(await page.evaluate(
         () => document.documentElement.scrollWidth > innerWidth,
