@@ -56,7 +56,7 @@ try {
     await page.screenshot({
       path: `/downloads/adya-founder-route-${width}.png`,
     });
-    await page.locator("#chooseInvestor").click();
+    await page.locator("#founder .backEntry").click();await page.locator("#chooseInvestor").click();
     assert(!(await page.locator("#founder").isVisible()));
     assert(await page.locator("#investorEntry").isVisible());
     await page.locator("#investorEntry").scrollIntoViewIfNeeded();

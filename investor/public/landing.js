@@ -1,6 +1,8 @@
 "use strict";
 const byId = (id) => document.getElementById(id);
 function open(id) {
+  document.querySelector("header").hidden = true;
+  byId("choose").hidden = true;
   for (const x of ["founder", "investorEntry"]) byId(x).hidden = x !== id;
   const section = byId(id);
   section.focus();
@@ -73,3 +75,14 @@ byId("founderNext").onclick = () => {
     byId("founderNext").textContent = "Walkthrough complete";
   }
 };
+
+document.querySelectorAll(".backEntry").forEach(
+  (b) =>
+    (b.onclick = () => {
+      document.querySelector("header").hidden = false;
+      byId("choose").hidden = false;
+      byId("founder").hidden = true;
+      byId("investorEntry").hidden = true;
+      window.scrollTo(0, 0);
+    }),
+);

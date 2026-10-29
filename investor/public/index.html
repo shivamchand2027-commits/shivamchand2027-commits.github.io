@@ -30,7 +30,7 @@
           >
           <div class="links">
             <a href="#choose">Choose your path</a
-            ><a href="#how">How access works</a
+            ><a href="#choose">Choose your journey</a
             ><a href="https://adyacapital.me/status.html"
               >Existing application status ↗</a
             >
@@ -69,8 +69,7 @@
               invitation opens the door, not an investment promise.
             </p>
             <p class="cost">
-              Valid invitation: no fee<br />Without invitation: ₹499 one-time
-              review fee
+              Choose your journey. Access details appear on the next step.
             </p>
             <button id="chooseFounder" aria-controls="founder">
               Continue as founder <span>→</span>
@@ -84,8 +83,7 @@
               profiles and tell the team what interests you.
             </p>
             <p class="cost">
-              Login, onboarded profiles and interest: free<br />Extra funding
-              directory: ₹999 monthly access
+              Choose your journey. Access details appear on the next step.
             </p>
             <button id="chooseInvestor" aria-controls="investorEntry">
               Continue as investor <span>→</span>
@@ -94,8 +92,15 @@
         </div>
       </section>
       <section class="panel journey" id="founder" hidden tabindex="-1">
+        <button class="backEntry">← Back to entry</button>
         <p class="eyebrow">FOUNDER ENTRY</p>
         <h2>Start with your invitation</h2>
+        <p class="notice">
+          Valid invitation: no fee. Without an invitation: ₹499 one-time review
+          fee, disclosed before you begin the form and collected after
+          completion, before acceptance for review. This does not buy admission
+          or funding.
+        </p>
         <p>
           The current founder journey stays intact. This walkthrough shows the
           steps only; it does not validate real codes or submit an application.
@@ -140,6 +145,7 @@
         </div>
       </section>
       <section class="panel journey" id="investorEntry" hidden tabindex="-1">
+        <button class="backEntry">← Back to entry</button>
         <p class="eyebrow">INVESTOR ENTRY</p>
         <h2>One investor account. A simpler return.</h2>
         <p>
@@ -172,58 +178,7 @@
           published.
         </p>
       </section>
-      <section id="how">
-        <p class="eyebrow">CLEAR STEPS. NO SURPRISE CHARGES.</p>
-        <h2>Pay for the service, not for a promise.</h2>
-        <div class="paths">
-          <article class="panel journey">
-            <h3>Founder review · ₹499 once</h3>
-            <ol>
-              <li>Complete founder details and deck.</li>
-              <li>Invited founders submit without paying.</li>
-              <li>Open applicants review the fee, then pay via Razorpay.</li>
-              <li>
-                A valid invited submission, or an open submission with verified
-                payment, produces the application ticket.
-              </li>
-            </ol>
-            <p class="small">
-              The fee pays for review. It does not buy admission, investment or
-              funding. Already applied? Check status, do not pay again.
-            </p>
-          </article>
-          <article class="panel journey">
-            <h3>Investor directory · ₹999 monthly access</h3>
-            <ol>
-              <li>Onboarded approved profiles and interest stay free.</li>
-              <li>Choose the separate wider funding directory directly.</li>
-              <li>
-                Review coverage, access duration and payment/refund terms.
-              </li>
-              <li>
-                Pay via Razorpay; confirmed payment unlocks that directory.
-              </li>
-            </ol>
-            <p class="small">
-              No interest submission required first. Renewal method and final
-              terms remain pending. No checkout is active.
-            </p>
-          </article>
-        </div>
-        <details class="panel journey">
-          <summary>
-            What if payment fails, is cancelled, or looks uncertain?
-          </summary>
-          <p>
-            No duplicate charge. Failed/cancelled founder payment does not
-            create a paid application; failed/cancelled directory payment leaves
-            it locked while free browsing remains available. If money was
-            debited or status is pending, check the existing payment before
-            another attempt. A checkout success message alone is not final
-            confirmation.
-          </p>
-        </details>
-      </section>
+
     </main>
     <footer>
       <p>Adya Capital · Build preview only</p>

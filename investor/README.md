@@ -63,3 +63,10 @@ QA: tests/landing.mjs at1440/390/320 verifies both transitions, code-format erro
 Owner-private click-through preview published:
 https://files.instinct.com/2deorc7bjzy9-adya-founder-and-investor-preview
 This is a separate static React review adaptation, not the live Adya site and not a replacement backend. It has original skyline/mark/theme with iframe-safe hero sizing, working role selection, invited/open fee walkthrough, illustrative profile and interest confirmation, disabled checkout and no registration. No personal data is collected. Source is in review-preview/. The existing full investor implementation stays in public/investor.html and server/. Hosted QA at1280/390/320 passed role switching,499boundary, interest preview disclaimer,999disabled and overflow checks. Actual pixels inspected on hosted desktop/mobile and cloud browser. Preview viewer chrome belongs to the hosting service, not the Adya product. Renewal and production gates unchanged.
+
+### Review update:30October2026, subtle payment placement
+- Original Adya landing now leads with two role paths and no price section.
+- Founder next step discloses499before form effort; valid invite free; actual collection remains after completion.
+- Hosted investor walkthrough reveals999only after explicit wider-directory selection, separately from free browsing/interest. Terms and renewal remain pending; checkout disabled.
+- Canonical private review link unchanged. Static walkthrough only; no production deployment or payment activation.
+- Hosted1280/390/320and local1440/390/320checks passed; unit12pass, realPG opt-in skipped this run.
