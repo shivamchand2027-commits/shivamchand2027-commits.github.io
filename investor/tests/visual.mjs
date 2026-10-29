@@ -7,12 +7,13 @@ const server = spawn(process.execPath, ["server/index.mjs"], {
 try {
   await new Promise((r) => setTimeout(r, 1200));
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({
+  let page = await browser.newPage({
     viewport: { width: 1440, height: 1000 },
   });
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("http://127.0.0.1:8099/");
+  await page.evaluate(() => document.fonts.ready);
   await page.getByRole("button", { name: "Explore the preview" }).click();
   await page.screenshot({
     path: "/downloads/adya-investor-desktop.png",
@@ -21,7 +22,16 @@ try {
   await page.getByRole("button", { name: "Show interest" }).first().click();
   await page.screenshot({ path: "/downloads/adya-investor-interest.png" });
   await page.locator("#closeDialog").click();
-  await page.setViewportSize({ width: 390, height: 844 });
+  await page.close();
+  page = await browser.newPage({
+    viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 1,
+  });
+  await page.goto("http://127.0.0.1:8099/");
+  await page.evaluate(() => document.fonts.ready);
+  await page.getByRole("button", { name: "Explore the preview" }).click();
+  await page.locator("#startupGrid .card").first().scrollIntoViewIfNeeded();
+  await page.evaluate(() => scrollTo(0, 0));
   await page.screenshot({
     path: "/downloads/adya-investor-mobile.png",
     fullPage: true,

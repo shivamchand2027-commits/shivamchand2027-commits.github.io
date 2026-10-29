@@ -5,40 +5,82 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>Investor desk | Adya Capital preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="theme.css" />
     <link rel="stylesheet" href="portal.css" />
     <script src="portal.js" defer></script>
   </head>
   <body>
-    <header>
-      <a class="brand" href="https://adyacapital.me/"
-        >ADYA <span>CAPITAL</span></a
-      >
-      <nav aria-label="Investor navigation">
-        <a href="#browse">Startups</a><a href="#directory">Funding directory</a
-        ><button id="logout" hidden>Sign out</button>
-      </nav>
-    </header>
-    <main>
-      <div id="previewNotice" class="notice">
-        BUILD PREVIEW · Not accepting registrations or payments
-      </div>
-      <section class="hero">
-        <p class="eyebrow">THE INVESTOR DESK</p>
-        <h1>Find the next <br />conversation worth having.</h1>
-        <p>
-          Explore founder-approved startup profiles. Tell the team what
-          interests you, and take the next step through a direct conversation.
-        </p>
-        <div class="chips">
-          <span>HNI</span><span>Seed investors</span><span>Family offices</span>
+    <div class="bg" aria-hidden="true"></div>
+    <header class="vhero short">
+      <div class="frame">
+        <nav class="nav" aria-label="Adya navigation">
+          <a
+            class="logo"
+            href="https://adyacapital.me/"
+            aria-label="Adya Capital"
+            ><img
+              class="lmark"
+              src="mark-t.png"
+              alt=""
+              width="36"
+              height="36"
+            /><span>Adya<br />Capital</span></a
+          >
+          <div class="links">
+            <a href="https://adyacapital.me/">Overview</a
+            ><a href="https://adyacapital.me/vault.html">Fund Vault</a
+            ><a href="https://adyacapital.me/padhai.html">Founder Academy</a
+            ><a href="https://adyacapital.me/communities.html">Communities</a
+            ><a href="https://adyacapital.me/faq.html">FAQ</a
+            ><a href="https://adyacapital.me/status.html">Application Status</a>
+          </div>
+          <button class="btn sm" id="logout" hidden>Sign out</button>
+        </nav>
+        <div class="hero-body">
+          <div>
+            <div id="previewNotice" class="notice">
+              BUILD PREVIEW · Not accepting registrations or payments
+            </div>
+            <div class="pills">
+              <span class="pill">HNI</span
+              ><span class="pill">Seed investors</span
+              ><span class="pill">Family offices</span>
+            </div>
+            <p class="kicker">The investor desk</p>
+            <h1 class="title">Find the next<br />conversation worth having.</h1>
+          </div>
+          <div class="hero-low">
+            <div>
+              <p class="sub">
+                Explore founder-approved startup profiles. Tell the team what
+                interests you, and take the next step through a direct
+                conversation.
+              </p>
+              <p class="small">
+                UNHI category is awaiting clarification. Categories are
+                self-declared, not verification of wealth, eligibility or
+                professional status. This is not an offer to buy securities.
+              </p>
+            </div>
+            <div class="right">
+              <a class="btn glass lg" href="#browse"
+                >Explore startups<span class="i">↓</span></a
+              >
+            </div>
+          </div>
         </div>
-        <p class="small">
-          UNHI category is awaiting clarification. Categories are self-declared,
-          not verification of wealth, eligibility or professional status. This
-          is not an offer to buy securities.
-        </p>
-      </section>
-      <section id="auth" class="panel">
+      </div>
+      <div class="corner tl">Access is earned,<br />never granted</div>
+      <div class="corner tr">Adya Capital<br />Investor desk</div>
+    </header>
+    <main class="wide">
+      <section id="auth" class="panel investor-panel">
         <div>
           <p class="eyebrow">YOUR ACCOUNT</p>
           <h2>Sign in to the investor desk</h2>
@@ -90,7 +132,7 @@
           </div>
           <div id="startupGrid" class="grid"></div>
         </section>
-        <section id="directory" class="panel directory">
+        <section id="directory" class="panel directory investor-panel">
           <div>
             <p class="eyebrow">A SEPARATE RESEARCH DIRECTORY</p>
             <h2>I want to see startups<br />actively seeking funding.</h2>
@@ -162,7 +204,7 @@
             >WhatsApp number<input
               name="phone"
               required
-              placeholder="+91 9876543210"
+              placeholder="+919876543210"
               pattern="\+[1-9][0-9]{7,14}"
               autocomplete="tel"
             /><small
