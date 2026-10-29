@@ -12,7 +12,7 @@ try {
   });
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("http://127.0.0.1:8099/");
+  await page.goto("http://127.0.0.1:8099/investor.html");
   await page.evaluate(() => document.fonts.ready);
   await page.getByRole("button", { name: "Explore the preview" }).click();
   await page.screenshot({
@@ -27,7 +27,7 @@ try {
     viewport: { width: 390, height: 844 },
     deviceScaleFactor: 1,
   });
-  await page.goto("http://127.0.0.1:8099/");
+  await page.goto("http://127.0.0.1:8099/investor.html");
   await page.evaluate(() => document.fonts.ready);
   await page.getByRole("button", { name: "Explore the preview" }).click();
   await page.locator("#startupGrid .card").first().scrollIntoViewIfNeeded();

@@ -1,0 +1,115 @@
+html {
+  scroll-behavior: smooth;
+}
+.paths {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.path {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 28px;
+}
+.path p {
+  margin: 10px 0 18px;
+}
+.path button {
+  margin-top: auto;
+  justify-content: space-between;
+}
+.cost {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  font-size: 14px;
+  color: #fff;
+}
+#choose,
+#how {
+  padding: 25px 0 35px;
+}
+.journey {
+  padding: 28px;
+  margin: 20px 0;
+  scroll-margin-top: 20px;
+}
+.journey:focus {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+.journey .paths {
+  margin: 20px 0;
+}
+.journey li {
+  margin: 12px 0;
+}
+.journey a {
+  color: inherit;
+}
+.step {
+  border: 1px solid var(--line);
+  padding: 18px;
+}
+.step h3 {
+  margin-top: 0;
+}
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 24px 0;
+}
+summary {
+  cursor: pointer;
+  min-height: 44px;
+  font-weight: 600;
+}
+#codeError {
+  color: #ffbdc7;
+}
+#founderState {
+  margin-top: 18px;
+}
+.wide > section {
+  max-width: 100%;
+}
+.vhero.short .hero-body {
+  padding-bottom: 30px;
+}
+.vhero.short .sub {
+  max-width: 700px;
+}
+footer {
+  padding: 24px;
+}
+@media (max-width: 720px) {
+  .paths {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .path,
+  .journey {
+    padding: 22px;
+  }
+  .journey li {
+    padding-right: 4px;
+  }
+  .nav .links {
+    flex-wrap: wrap;
+  }
+  .vhero.short .title {
+    font-size: 40px;
+  }
+  .vhero.short .frame {
+    min-height: auto;
+  }
+  .vhero.short .hero-body {
+    gap: 16px;
+  }
+  .nav {
+    gap: 16px;
+  }
+  .cost {
+    font-size: 13px;
+  }
+}

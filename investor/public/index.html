@@ -4,273 +4,234 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>Investor desk | Adya Capital preview</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>Adya Capital | Founder and investor entry preview</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="theme.css" />
     <link rel="stylesheet" href="portal.css" />
-    <script src="portal.js" defer></script>
+    <link rel="stylesheet" href="landing.css" />
+    <script src="landing.js" defer></script>
   </head>
   <body>
     <div class="bg" aria-hidden="true"></div>
     <header class="vhero short">
       <div class="frame">
-        <nav class="nav" aria-label="Adya navigation">
-          <a
-            class="logo"
-            href="https://adyacapital.me/"
-            aria-label="Adya Capital"
+        <nav class="nav">
+          <a class="logo" href="/"
             ><img
               class="lmark"
               src="mark-t.png"
               alt=""
-              width="36"
-              height="36"
+              width="34"
+              height="34"
             /><span>Adya<br />Capital</span></a
           >
           <div class="links">
-            <a href="https://adyacapital.me/">Overview</a
-            ><a href="https://adyacapital.me/vault.html">Fund Vault</a
-            ><a href="https://adyacapital.me/padhai.html">Founder Academy</a
-            ><a href="https://adyacapital.me/communities.html">Communities</a
-            ><a href="https://adyacapital.me/faq.html">FAQ</a
-            ><a href="https://adyacapital.me/status.html">Application Status</a>
+            <a href="#choose">Choose your path</a
+            ><a href="#how">How access works</a
+            ><a href="https://adyacapital.me/status.html"
+              >Existing application status ↗</a
+            >
           </div>
-          <button class="btn sm" id="logout" hidden>Sign out</button>
         </nav>
         <div class="hero-body">
           <div>
-            <div id="previewNotice" class="notice">
-              BUILD PREVIEW · Not accepting registrations or payments
-            </div>
-            <div class="pills">
-              <span class="pill">HNI</span
-              ><span class="pill">Seed investors</span
-              ><span class="pill">Family offices</span>
-            </div>
-            <p class="kicker">The investor desk</p>
-            <h1 class="title">Find the next<br />conversation worth having.</h1>
+            <p class="notice">
+              INTERACTIVE PREVIEW · No signups, applications or payments are
+              accepted here
+            </p>
+            <p class="kicker">Adya Capital</p>
+            <h1 class="title">The right room.<br />The right next step.</h1>
           </div>
           <div class="hero-low">
-            <div>
-              <p class="sub">
-                Explore founder-approved startup profiles. Tell the team what
-                interests you, and take the next step through a direct
-                conversation.
-              </p>
-              <p class="small">
-                UNHI category is awaiting clarification. Categories are
-                self-declared, not verification of wealth, eligibility or
-                professional status. This is not an offer to buy securities.
-              </p>
-            </div>
-            <div class="right">
-              <a class="btn glass lg" href="#browse"
-                >Explore startups<span class="i">↓</span></a
-              >
-            </div>
+            <p class="sub">
+              Building something worth backing, or looking for your next founder
+              conversation? Start with what brings you here.
+            </p>
           </div>
         </div>
       </div>
       <div class="corner tl">Access is earned,<br />never granted</div>
-      <div class="corner tr">Adya Capital<br />Investor desk</div>
+      <div class="corner tr">Founders<br />& investors</div>
     </header>
     <main class="wide">
-      <section id="auth" class="panel investor-panel">
-        <div>
-          <p class="eyebrow">YOUR ACCOUNT</p>
-          <h2>Sign in to the investor desk</h2>
-          <p>
-            Use Google to sign in securely. Your contact details are shared with
-            the Adya team when you submit interest, not displayed publicly.
-          </p>
-        </div>
-        <div>
-          <div id="googleButton"></div>
-          <p id="authStatus" role="status">
-            Loading secure sign-in configuration...
-          </p>
-          <button id="previewExplore" hidden>Explore the preview</button>
-        </div>
-      </section>
-      <section id="workspace" hidden>
-        <section id="browse">
-          <div class="section-title">
-            <div>
-              <p class="eyebrow">FOUNDER-APPROVED PROFILES</p>
-              <h2>Onboarded startups</h2>
-            </div>
-            <span id="count" class="small"></span>
-          </div>
-          <p>
-            Profiles appear only after founder publication consent and an Adya
-            review. Expressing interest is nonbinding and does not commit you to
-            invest.
-          </p>
-          <div class="filters">
-            <label
-              >Industry<select id="industry">
-                <option value="">All industries</option>
-                <option>AI</option>
-                <option>Consumer</option>
-                <option>Fintech</option>
-                <option>Healthcare</option>
-                <option>SaaS</option>
-                <option>Climate</option>
-                <option>Other</option>
-              </select></label
-            ><label
-              >Search<input
-                id="search"
-                type="search"
-                placeholder="Company, sector or keyword"
-            /></label>
-          </div>
-          <div id="startupGrid" class="grid"></div>
-        </section>
-        <section id="directory" class="panel directory investor-panel">
-          <div>
-            <p class="eyebrow">A SEPARATE RESEARCH DIRECTORY</p>
-            <h2>I want to see startups<br />actively seeking funding.</h2>
+      <section id="choose">
+        <p class="eyebrow">ONE ENTRY. TWO JOURNEYS.</p>
+        <h2>What brings you to Adya?</h2>
+        <div class="paths">
+          <article class="card path">
+            <p class="eyebrow">FOR FOUNDERS</p>
+            <h2>I'm raising funds</h2>
             <p>
-              Industry-sorted opportunities from permitted public sources, with
-              a clear ask where disclosed, a source link and a freshness date.
-              These are source-reported opportunities, not Adya-onboarded or
-              verified investments.
+              Bring your startup and deck to the application journey. An
+              invitation opens the door, not an investment promise.
             </p>
-            <p class="small">
-              A closed funding round is not treated as an open opportunity.
-              Expired or unconfirmed entries stay out of the directory.
+            <p class="cost">
+              Valid invitation: no fee<br />Without invitation: ₹499 one-time
+              review fee
             </p>
-          </div>
-          <div class="pricebox">
-            <p class="price">₹999 <span>/ month</span></p>
-            <p id="billingCopy">
-              Billing duration, renewal, cancellation and refund terms are
-              awaiting owner approval. No checkout is active.
+            <button id="chooseFounder" aria-controls="founder">
+              Continue as founder <span>→</span>
+            </button>
+          </article>
+          <article class="card path">
+            <p class="eyebrow">FOR INVESTORS</p>
+            <h2>I'm looking to invest</h2>
+            <p>
+              HNI, UHNI, seed investor or family office. Explore approved
+              profiles and tell the team what interests you.
             </p>
-            <label class="check"
-              ><input id="terms" type="checkbox" disabled /><span
-                id="termsLabel"
-                >I have read the access and payment terms.</span
-              ></label
-            ><button id="subscribe" disabled>Payment not yet available</button>
-            <p id="paymentStatus" class="small" role="status"></p>
-            <p id="accessStatus" class="small"></p>
-          </div>
-        </section>
-        <div id="publicGrid" class="grid" hidden></div>
-      </section>
-      <footer>
-        <p>Adya Capital · Investor desk</p>
-        <p>
-          Introductions and research only. No investment orders, custody, money
-          pooling or guaranteed funding. Directory access is a service fee, not
-          an investment. Live release and fundraising scope remain under review.
-        </p>
-        <a href="https://adyacapital.me/faq.html">Existing founder support</a>
-      </footer>
-    </main>
-    <dialog id="interestDialog">
-      <form id="interestForm">
-        <button
-          type="button"
-          class="close"
-          id="closeDialog"
-          aria-label="Close interest form"
-        >
-          ×
-        </button>
-        <p class="eyebrow">A NONBINDING INTRODUCTION REQUEST</p>
-        <h2 id="interestTitle">Show interest</h2>
-        <div class="formgrid">
-          <label
-            >Name<input
-              name="name"
-              required
-              maxlength="120"
-              autocomplete="name" /></label
-          ><label
-            >Email<input
-              name="email"
-              type="email"
-              required
-              autocomplete="email" /></label
-          ><label
-            >WhatsApp number<input
-              name="phone"
-              required
-              placeholder="+919876543210"
-              pattern="\+[1-9][0-9]{7,14}"
-              autocomplete="tel"
-            /><small
-              >International format. Availability is self-declared.</small
-            ></label
-          ><label
-            >Company / firm / office<input
-              name="firm"
-              required
-              maxlength="180"
-              autocomplete="organization" /></label
-          ><label
-            >Country<input
-              name="country"
-              required
-              maxlength="80"
-              autocomplete="country-name" /></label
-          ><label
-            >Investor category<select name="role" required>
-              <option value="">Select category</option>
-              <option>HNI</option>
-              <option>Seed Investor</option>
-              <option>Family Office</option>
-            </select></label
-          ><label
-            >Ballpark amount<input
-              name="amount"
-              type="number"
-              min="1"
-              step="any"
-              required /></label
-          ><label
-            >Currency<select name="currency">
-              <option>INR</option>
-              <option>USD</option>
-              <option>EUR</option>
-              <option>GBP</option>
-              <option>AED</option>
-              <option>SGD</option>
-            </select></label
-          >
+            <p class="cost">
+              Login, onboarded profiles and interest: free<br />Extra funding
+              directory: ₹999 monthly access
+            </p>
+            <button id="chooseInvestor" aria-controls="investorEntry">
+              Continue as investor <span>→</span>
+            </button>
+          </article>
         </div>
-        <label class="check"
-          ><input name="whatsapp" type="checkbox" required /><span
-            >This number is available on WhatsApp.</span
-          ></label
-        ><label class="check"
-          ><input name="consent" type="checkbox" required /><span
-            >I agree that Adya may use these details to contact me about this
-            startup and my investment interest. My interest is not an investment
-            commitment.</span
-          ></label
+      </section>
+      <section class="panel journey" id="founder" hidden tabindex="-1">
+        <p class="eyebrow">FOUNDER ENTRY</p>
+        <h2>Start with your invitation</h2>
+        <p>
+          The current founder journey stays intact. This walkthrough shows the
+          steps only; it does not validate real codes or submit an application.
+        </p>
+        <div class="paths">
+          <div>
+            <label
+              >Invitation code<input
+                id="founderCode"
+                placeholder="ADYA-XXXXX"
+                autocomplete="off" /></label
+            ><button id="invited">Walk through invited route</button>
+            <p id="codeError" role="alert"></p>
+          </div>
+          <div>
+            <p>No invitation?</p>
+            <button class="btn glass" id="openFounder">
+              Walk through open application
+            </button>
+            <p class="small">
+              ₹499 is disclosed before you begin and collected after the
+              completed form, before acceptance for review.
+            </p>
+          </div>
+        </div>
+        <p class="small">
+          <a href="https://adyacapital.me/"
+            >Open existing founder application ↗</a
+          >
+          ·
+          <a href="https://adyacapital.me/status.html"
+            >Check existing application status ↗</a
+          ><br />These links leave this preview for the existing live founder
+          site.
+        </p>
+        <div id="founderSteps" hidden>
+          <hr />
+          <h3 id="founderRoute"></h3>
+          <ol id="founderSequence"></ol>
+          <button id="founderNext">Preview next step</button>
+          <p id="founderState" class="notice" role="status"></p>
+        </div>
+      </section>
+      <section class="panel journey" id="investorEntry" hidden tabindex="-1">
+        <p class="eyebrow">INVESTOR ENTRY</p>
+        <h2>One investor account. A simpler return.</h2>
+        <p>
+          First time: secure sign-in, then a short investor profile. Returning:
+          sign in and continue where you left off. HNI / UHNI / Seed Investor /
+          Family Office are profile categories, not separate logins.
+        </p>
+        <div class="paths">
+          <div class="step">
+            <h3>First visit</h3>
+            <p>Verify identity → short profile → onboarded startups.</p>
+          </div>
+          <div class="step">
+            <h3>Returning investor</h3>
+            <p>
+              Sign in → startups. Active paid-directory access stays attached to
+              the account.
+            </p>
+          </div>
+        </div>
+        <p class="notice">
+          Secure sign-in is not live in this preview. Sample browsing does not
+          create an account or save your details.
+        </p>
+        <a class="btn lg" href="investor.html"
+          >Explore sample investor journey <span class="i">→</span></a
         >
         <p class="small">
-          Preview notice: data is not submitted or retained. Live retention,
-          deletion and contact terms await approval.
+          No private founder decks, contact lists or unapproved profiles are
+          published.
         </p>
-        <button id="interestSubmit" type="submit">Submit interest</button>
-        <p id="interestError" role="alert"></p>
-      </form>
-    </dialog>
-    <dialog id="successDialog">
-      <p class="eyebrow">INTEREST RECEIVED</p>
-      <h2>Team shall get in touch with you.</h2>
-      <p id="receipt"></p>
-      <button id="successClose">Continue browsing</button>
-    </dialog>
+      </section>
+      <section id="how">
+        <p class="eyebrow">CLEAR STEPS. NO SURPRISE CHARGES.</p>
+        <h2>Pay for the service, not for a promise.</h2>
+        <div class="paths">
+          <article class="panel journey">
+            <h3>Founder review · ₹499 once</h3>
+            <ol>
+              <li>Complete founder details and deck.</li>
+              <li>Invited founders submit without paying.</li>
+              <li>Open applicants review the fee, then pay via Razorpay.</li>
+              <li>
+                A valid invited submission, or an open submission with verified
+                payment, produces the application ticket.
+              </li>
+            </ol>
+            <p class="small">
+              The fee pays for review. It does not buy admission, investment or
+              funding. Already applied? Check status, do not pay again.
+            </p>
+          </article>
+          <article class="panel journey">
+            <h3>Investor directory · ₹999 monthly access</h3>
+            <ol>
+              <li>Onboarded approved profiles and interest stay free.</li>
+              <li>Choose the separate wider funding directory directly.</li>
+              <li>
+                Review coverage, access duration and payment/refund terms.
+              </li>
+              <li>
+                Pay via Razorpay; confirmed payment unlocks that directory.
+              </li>
+            </ol>
+            <p class="small">
+              No interest submission required first. Renewal method and final
+              terms remain pending. No checkout is active.
+            </p>
+          </article>
+        </div>
+        <details class="panel journey">
+          <summary>
+            What if payment fails, is cancelled, or looks uncertain?
+          </summary>
+          <p>
+            No duplicate charge. Failed/cancelled founder payment does not
+            create a paid application; failed/cancelled directory payment leaves
+            it locked while free browsing remains available. If money was
+            debited or status is pending, check the existing payment before
+            another attempt. A checkout success message alone is not final
+            confirmation.
+          </p>
+        </details>
+      </section>
+    </main>
+    <footer>
+      <p>Adya Capital · Build preview only</p>
+      <p>
+        One person may be a founder and an investor. Permissions remain
+        separate.<br />No investment order, guaranteed funding, account creation
+        or payment is made here.
+      </p>
+    </footer>
   </body>
 </html>
