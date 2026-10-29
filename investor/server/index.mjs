@@ -45,6 +45,13 @@ const app = express(),
 if (!preview && (!env.INVESTOR_SHEET_ID || !clientId))
   console.warn("Portal is fail-closed: server configuration missing.");
 app.disable("x-powered-by");
+if (env.EDGE_MODE === "true")
+  app.use((req, res, next) => {
+    const prefix = env.FUNCTION_PREFIX || "/adya-investor";
+    if (req.url.startsWith(prefix))
+      req.url = req.url.slice(prefix.length) || "/";
+    next();
+  });
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -79,12 +86,24 @@ app.use(
 app.use(cookieParser());
 app.use(
   "/api",
-  rateLimit({
-    windowMs: 60000,
-    limit: 45,
-    standardHeaders: "draft-8",
-    legacyHeaders: false,
-  }),
+  env.DATABASE_URL
+    ? async (req, res, next) => {
+        try {
+          if (!(await store.rateHit(hash(req.ip || "unknown"))))
+            return res
+              .status(429)
+              .json({ error: "Too many requests. Wait a minute." });
+          next();
+        } catch {
+          res.status(503).json({ error: "Service temporarily unavailable" });
+        }
+      }
+    : rateLimit({
+        windowMs: 60000,
+        limit: 45,
+        standardHeaders: "draft-8",
+        legacyHeaders: false,
+      }),
 );
 const id = () => crypto.randomUUID(),
   now = () => new Date().toISOString(),
@@ -245,9 +264,11 @@ app.get("/api/config", (req, res) =>
       "Self-declared categories. Sign-in does not verify investor status.",
   }),
 );
-app.get("/api/auth/challenge", (req, res) => {
+app.get("/api/auth/challenge", async (req, res) => {
   const token = crypto.randomBytes(32).toString("hex");
-  loginChallenges.set(hash(token), Date.now() + 300000);
+  if (env.DATABASE_URL)
+    await store.authPut("nonce", hash(token), {}, Date.now() + 300000);
+  else loginChallenges.set(hash(token), Date.now() + 300000);
   res.cookie("adya_login", token, { ...cookieOptions, maxAge: 300000 });
   res.json({ nonce: hash(token) });
 });
@@ -255,11 +276,10 @@ app.post("/api/auth/google", async (req, res) => {
   try {
     const token = req.cookies.adya_login,
       key = hash(token || "");
-    if (
-      !token ||
-      !loginChallenges.has(key) ||
-      loginChallenges.get(key) < Date.now()
-    )
+    const challenge = env.DATABASE_URL
+      ? await store.authGet("nonce", key)
+      : loginChallenges.get(key) > Date.now();
+    if (!token || !challenge)
       return res.status(403).json({ error: "Start sign-in again" });
     if (!enabled || !clientId) throw Error();
     const ticket = await google.verifyIdToken({
@@ -268,17 +288,27 @@ app.post("/api/auth/google", async (req, res) => {
       }),
       p = ticket.getPayload();
     if (p.nonce !== key || !p.sub || !p.email_verified) throw Error();
-    loginChallenges.delete(key);
+    if (env.DATABASE_URL) {
+      if (!(await store.authConsume("nonce", key))) throw Error();
+    } else loginChallenges.delete(key);
     const userId = hash("google:" + p.sub),
       session = crypto.randomBytes(32).toString("hex"),
       csrf = crypto.randomBytes(32).toString("hex");
-    sessions.set(hash(session), {
+    const sessionData = {
       userId,
       email: p.email,
       subject: p.sub,
       csrf,
       expires: Date.now() + 8 * 3600000,
-    });
+    };
+    if (env.DATABASE_URL)
+      await store.authPut(
+        "session",
+        hash(session),
+        sessionData,
+        sessionData.expires,
+      );
+    else sessions.set(hash(session), sessionData);
     res.cookie("adya_session", session, cookieOptions);
     res.clearCookie("adya_login", { path: "/api" });
     res.json({ ok: true, csrf, email: p.email });
@@ -287,7 +317,10 @@ app.post("/api/auth/google", async (req, res) => {
   }
 });
 app.use("/api", async (req, res, next) => {
-  const s = sessions.get(hash(req.cookies.adya_session || ""));
+  const sessionKey = hash(req.cookies.adya_session || "");
+  const s = env.DATABASE_URL
+    ? await store.authGet("session", sessionKey)
+    : sessions.get(sessionKey);
   if (!s || s.expires < Date.now())
     return res.status(401).json({ error: "Sign in to continue" });
   if (req.method !== "GET" && !equal(s.csrf, req.get("x-csrf-token") || ""))
@@ -309,8 +342,10 @@ app.get("/api/me", async (req, res) => {
     access: { active: canRead(access), endsAt: access?.endsAt || null },
   });
 });
-app.post("/api/logout", (req, res) => {
-  sessions.delete(hash(req.cookies.adya_session || ""));
+app.post("/api/logout", async (req, res) => {
+  const sessionKey = hash(req.cookies.adya_session || "");
+  if (env.DATABASE_URL) await store.authDelete("session", sessionKey);
+  else sessions.delete(sessionKey);
   res.clearCookie("adya_session", { path: "/api" });
   res.json({ ok: true });
 });
@@ -459,11 +494,9 @@ app.post("/api/orders", async (req, res) => {
 app.post("/api/payments/verify", async (req, res) => {
   try {
     if (!env.RAZORPAY_KEY_SECRET)
-      return res
-        .status(503)
-        .json({
-          error: "Confirmation unavailable. Do not pay again; contact support.",
-        });
+      return res.status(503).json({
+        error: "Confirmation unavailable. Do not pay again; contact support.",
+      });
     const { orderId, paymentId, signature: sig } = req.body;
     const order = (await store.all("Orders")).find(
       (x) => x.providerOrderId === orderId && x.userId === req.session.userId,
@@ -477,12 +510,10 @@ app.post("/api/payments/verify", async (req, res) => {
         sig,
       )
     )
-      return res
-        .status(400)
-        .json({
-          error:
-            "Payment could not be verified. Do not pay again; contact support.",
-        });
+      return res.status(400).json({
+        error:
+          "Payment could not be verified. Do not pay again; contact support.",
+      });
     const p = await provider("payments/" + encodeURIComponent(paymentId));
     if (
       !verifiedPayment(
@@ -491,12 +522,10 @@ app.post("/api/payments/verify", async (req, res) => {
         req.session.userId,
       )
     )
-      return res
-        .status(409)
-        .json({
-          error:
-            "Payment is not yet captured. Do not pay again; access will reconcile after capture.",
-        });
+      return res.status(409).json({
+        error:
+          "Payment is not yet captured. Do not pay again; access will reconcile after capture.",
+      });
     const state = await serial.run(async () => {
       const state = await grant(req.session.userId, p.id);
       await store.put("Orders", {
@@ -507,20 +536,16 @@ app.post("/api/payments/verify", async (req, res) => {
       return state;
     });
     if (state !== "active")
-      return res
-        .status(409)
-        .json({
-          error:
-            "This payment has a refund or dispute hold. Do not pay again; contact support.",
-        });
+      return res.status(409).json({
+        error:
+          "This payment has a refund or dispute hold. Do not pay again; contact support.",
+      });
     res.json({ ok: true });
   } catch {
-    res
-      .status(503)
-      .json({
-        error:
-          "Confirmation interrupted. Do not pay again; retry confirmation or contact support.",
-      });
+    res.status(503).json({
+      error:
+        "Confirmation interrupted. Do not pay again; retry confirmation or contact support.",
+    });
   }
 });
 app.get("/api/orders/status", async (req, res) => {
@@ -556,16 +581,14 @@ app.get("/api/orders/status", async (req, res) => {
       doNotPayAgain: result !== "failed",
     });
   } catch {
-    res
-      .status(503)
-      .json({
-        error:
-          "Could not reconcile payment. Do not pay again; contact support.",
-      });
+    res.status(503).json({
+      error: "Could not reconcile payment. Do not pay again; contact support.",
+    });
   }
 });
 app.use("/api", (req, res) => res.status(404).json({ error: "Not found" }));
-app.use(express.static(path.join(root, "public")));
+if (env.EDGE_MODE !== "true")
+  app.use(express.static(path.join(root, "public")));
 app.get("/health", (req, res) =>
   res.json({ ok: true, preview, live: enabled, billing }),
 );
@@ -574,6 +597,7 @@ app.listen(env.PORT || 8099, env.HOST || "127.0.0.1", () =>
   console.log("Portal preview available on localhost:" + (env.PORT || 8099)),
 );
 setInterval(() => {
+  if (env.DATABASE_URL) store.cleanExpiredAuth().catch(() => {});
   for (const [k, v] of sessions) if (v.expires < Date.now()) sessions.delete(k);
   for (const [k, v] of loginChallenges)
     if (v < Date.now()) loginChallenges.delete(k);

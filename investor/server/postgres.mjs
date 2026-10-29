@@ -43,6 +43,53 @@ export class PostgresStore {
       c.release();
     }
   }
+  async authPut(kind, id, data, expires) {
+    await this.ready;
+    await this.pool.query(
+      "INSERT INTO adya_portal.records(tab,id,data) VALUES($1,$2,$3) ON CONFLICT(tab,id) DO UPDATE SET data=EXCLUDED.data,updated_at=now()",
+      ["Auth_" + kind, id, JSON.stringify({ ...data, expires })],
+    );
+  }
+  async authGet(kind, id) {
+    await this.ready;
+    const r = await this.pool.query(
+      "SELECT data FROM adya_portal.records WHERE tab=$1 AND id=$2 AND (data->>'expires')::bigint>$3",
+      ["Auth_" + kind, id, Date.now()],
+    );
+    return r.rows[0]?.data;
+  }
+  async authDelete(kind, id) {
+    await this.ready;
+    await this.pool.query(
+      "DELETE FROM adya_portal.records WHERE tab=$1 AND id=$2",
+      ["Auth_" + kind, id],
+    );
+  }
+  async authConsume(kind, id) {
+    await this.ready;
+    const r = await this.pool.query(
+      "DELETE FROM adya_portal.records WHERE tab=$1 AND id=$2 AND (data->>'expires')::bigint>$3 RETURNING data",
+      ["Auth_" + kind, id, Date.now()],
+    );
+    return r.rows[0]?.data;
+  }
+  async rateHit(key, limit = 45) {
+    await this.ready;
+    const bucket = Math.floor(Date.now() / 60000),
+      id = key + ":" + bucket;
+    const r = await this.pool.query(
+      "INSERT INTO adya_portal.records(tab,id,data) VALUES('Rate',$1,jsonb_build_object('count',1,'expires',$2::bigint)) ON CONFLICT(tab,id) DO UPDATE SET data=jsonb_set(adya_portal.records.data,'{count}',to_jsonb((adya_portal.records.data->>'count')::int+1)) RETURNING (data->>'count')::int AS count",
+      [id, (bucket + 2) * 60000],
+    );
+    return r.rows[0].count <= limit;
+  }
+  async cleanExpiredAuth() {
+    await this.ready;
+    await this.pool.query(
+      "DELETE FROM adya_portal.records WHERE (tab LIKE 'Auth_%' OR tab='Rate') AND (data->>'expires')::bigint<$1",
+      [Date.now()],
+    );
+  }
   check(tab) {
     if (!Object.hasOwn(COLUMNS, tab)) throw Error("Unknown table");
   }

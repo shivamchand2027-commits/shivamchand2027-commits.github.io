@@ -48,6 +48,18 @@ test(
       await assert.rejects(() =>
         b.put("Access", { id: prefix + "_dup", paymentId: prefix }),
       );
+      await a.authPut("session", prefix, { userId: "u" }, Date.now() + 60000);
+      assert.equal((await b.authGet("session", prefix)).userId, "u");
+      await a.authPut("nonce", prefix, {}, Date.now() + 60000);
+      const consumed = await Promise.all([
+        a.authConsume("nonce", prefix),
+        b.authConsume("nonce", prefix),
+      ]);
+      assert.equal(consumed.filter(Boolean).length, 1);
+      const hits = await Promise.all(
+        Array.from({ length: 50 }, () => a.rateHit(prefix)),
+      );
+      assert.equal(hits.filter(Boolean).length, 45);
       const r = await a.pool.query(
         "SELECT has_schema_privilege('public','adya_portal','USAGE') AS allowed",
       );
