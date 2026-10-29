@@ -305,3 +305,5 @@ async function boot() {
   }
 }
 boot();
+
+document.getElementById("directoryDetails").onclick = () => {document.getElementById("directoryDetails").hidden=true;document.getElementById("directoryPrice").hidden=false;};
