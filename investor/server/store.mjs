@@ -1,6 +1,7 @@
 import { google } from "googleapis";
 import { safeCell } from "./core.mjs";
 export const COLUMNS = {
+  Contacts: ["id","subject","name","email","phone","role","contactConsentVersion","marketingConsent","marketingConsentVersion","createdAt","updatedAt"],
   Investors: [
     "id",
     "subject",

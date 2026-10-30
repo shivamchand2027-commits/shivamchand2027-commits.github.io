@@ -18,6 +18,13 @@ export function clean(s, max = 300) {
     .trim()
     .slice(0, max);
 }
+// Contact intake is separate from investor suitability/profile and optional marketing.
+export function validateContact(p) {
+  const name=clean(p.name,120),email=clean(p.email,254).toLowerCase(),phone=clean(p.phone,30).replace(/[ ()-]/g,''),role=clean(p.role,20);
+  if(!name||!/^\S+@\S+\.\S+$/.test(email)||!/^\+[1-9]\d{7,14}$/.test(phone)||!['founder','investor'].includes(role)||p.contactConsent!==true||typeof p.marketingConsent!=='boolean')
+    throw Error('Add your name, email, international mobile number and contact consent. Marketing is optional.');
+  return {name,email,phone,role,contactConsentVersion:'contact-followup-v1',marketingConsent:p.marketingConsent,marketingConsentVersion:p.marketingConsent?'adya-updates-v1':''};
+}
 export function validateProfile(p) {
   const name = clean(p.name, 120),
     email = clean(p.email, 254).toLowerCase(),

@@ -13,6 +13,7 @@ import {
   equal,
   signature,
   validateProfile,
+  validateContact,
   visible,
   project,
   canRead,
@@ -348,6 +349,16 @@ app.post("/api/logout", async (req, res) => {
   else sessions.delete(sessionKey);
   res.clearCookie("adya_session", { path: "/api" });
   res.json({ ok: true });
+});
+// No anonymous intake, cross-account email claims, mail send or automatic marketing enrollment.
+app.post('/api/contact',async(req,res)=>{
+  try{
+    if(!enabled)return res.status(503).json({error:'Registration is not live.'});
+    const p=validateContact(req.body);
+    if(p.email!==String(req.session.email).toLowerCase())return res.status(400).json({error:'Use the email verified by your sign-in.'});
+    await serial.run(async()=>{const existing=(await store.all('Contacts')).find(x=>x.id===req.session.userId);await store.put('Contacts',{...p,id:req.session.userId,subject:req.session.subject,createdAt:existing?.createdAt||now(),updatedAt:now()});});
+    res.json({ok:true,message:'Contact details saved.'});
+  }catch(e){res.status(400).json({error:e.message});}
 });
 app.post("/api/profile", async (req, res) => {
   try {

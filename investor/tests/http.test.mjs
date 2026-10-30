@@ -32,7 +32,7 @@ test("server endpoints reject unauthenticated actions, forged origins and webhoo
     assert.equal(cfg.checkoutEnabled, false);
     for (const path of ["me", "startups?lane=public", "orders/status"])
       assert.equal((await fetch(base + "/api/" + path)).status, 401);
-    for (const path of ["orders", "interests", "payments/verify", "profile"])
+    for (const path of ["orders", "interests", "payments/verify", "profile", "contact"])
       assert.equal(
         (
           await fetch(base + "/api/" + path, {
