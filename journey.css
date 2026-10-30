@@ -10,3 +10,5 @@
 .adya.refined #journey{min-height:0;margin:0;max-width:none}.adya.refined .bg{top:0!important;bottom:0!important;background-size:cover!important;background-position:center top!important}.adya.refined .focusCard{min-height:0}.adya.refined .focusWrap{margin-bottom:40px}.adya.refined .lead{margin-bottom:24px}
 
 html,body{margin:0;min-height:100%;}body{background:#0f1930}.adya.refined{min-height:100vh}.adya.refined .bg{position:fixed;min-height:100vh}.adya [hidden]{display:none!important}.adya button{cursor:pointer}.adya .identity{color:white;text-decoration:none}.adya .focusWrap{box-sizing:border-box}*{box-sizing:border-box}
+
+.adya a.primaryAction{text-decoration:none}

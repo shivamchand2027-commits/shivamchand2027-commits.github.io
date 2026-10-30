@@ -7,3 +7,5 @@ body:has(#gate:not(.hidden)) main{display:none}#gate .vhero.full{min-height:100v
 .founderBack{text-align:left!important;width:100%;box-sizing:border-box}#gate .hero-body{width:100%;box-sizing:border-box}
 
 .founderHelp{max-width:650px;margin:20px auto;padding:0 24px;color:white;font-size:12px}.founderHelp a{color:inherit}.founderHelp summary{min-height:44px;cursor:pointer}.founderHelp[open]{padding-bottom:16px}
+
+#toast:empty{display:none}
