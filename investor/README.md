@@ -80,3 +80,6 @@ Latest hosted review is `review-preview/src/App.tsx`, with `tests/hosted-focus.m
 - Original theme retained.1280/390/320 technical/visual review passed, not a claim of user research/perfection.
 - This redesign is isolated to the hosted review adaptation. Local backend/forms still need design integration after owner review; root/live founder site remains untouched.
 - UX grounding: https://design-system.service.gov.uk/patterns/question-pages/ and https://www.nngroup.com/articles/progressive-disclosure/
+
+### Limited live release,30October2026
+Owner approved staged launch in a direct reply at18:07IST to the limited-release choice. Root landing uses the reviewed premium theme; founder contact step hands name/email in browser session storage to founder.html, then real invitation verification/application/499payment. Mobile explicitly not saved, no independent lead capture. Investor route says not open yet; no sample inventory, auth, interest or999checkout exposed. Existing backend, pay.js, config.js, app.js, status and referral processing unchanged. founder-app.js only changes optional blank-code routing and Continue label. Local mock-backed tests cover1280/390/320, referral prefill, valid/invalid code, form Back preservation, PDF/link and payment-boundary/no submissions. Real live charges/applications/emails not used for verification.
