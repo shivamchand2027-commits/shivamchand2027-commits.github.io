@@ -45,3 +45,11 @@ Every backend code change needs Deploy > Manage deployments > New version. Editi
 - No secrets, keys or sheet IDs live in this repo.
 - Member pages are gated client-side (courtesy gate); treat their content as semi-public.
 - Founders see only their own status and score, keyed by email + ticket.
+
+## 31 October 2026: private Master Data Log
+
+The existing private approval workbook now contains a `Master Data Log` tab. It links saved founder application records, decisions, payment fields, readiness scores and feedback audit entries by ticket. All original tabs and records are preserved; source tabs remain authoritative. It is a formula-driven operations view, not a new public database. No applicant/contact data is included in this repository.
+
+At verification, it showed nine saved application records without formula errors. Historical/test rows remain historical/test records. The view currently pre-provisions 100 application rows and must be extended before that capacity is reached.
+
+The tab explicitly marks investor contact/profile capture as not live and mobile as not stored by the current founder service. Marketing consent is not inferred. This documentation records the delivered Sheet change only, not the unshipped investor login, storage, directory or payment work. Email sending restrictions remain unchanged.

@@ -115,3 +115,9 @@
 - Image-sitemap extension on the homepage entry (og.png + logo-512.png) for Googlebot-Image discovery.
 - music.js: the 850KB music prefetch now runs at idle time instead of init. Same first-tap behavior; real-world speed benefit unproven in A/B, kept as hygiene. NOTE: Lighthouse LCP showed high run-to-run variance on the live site (status.html 7.5s then 2.7s; home 2.7s then 6.7s), so no page-specific LCP defect is confirmed.
 - No visible copy changes: homepage kicker/sub wording held pending owner decision.
+
+## 2026-10-31 - Private Master Data Log delivered
+- Added and verified a consolidated operations tab inside the existing private approval workbook; original seven tabs/data and audience preserved.
+- Linked current founder application, decision, payment, score and feedback audit fields by ticket; no private applicant data committed here.
+- Explicitly marked investor capture as not live and mobile capture as pending. This is not a production investor database or launch announcement.
+- Documented current 100-application formula-view capacity and extension requirement.
